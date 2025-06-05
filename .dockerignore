@@ -1,0 +1,7 @@
+**/build/
+**/.gradle/
+.gradle/
+.git/
+*.docx
+*.md
+*.env
