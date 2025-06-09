@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class ApiClient {
-    private static final String BASE_URL = "http://10.0.2.2:8080/"; // Android emulator localhost
-    // private static final String BASE_URL = "http://172.20.10.9:8080/";  // or another IP from above
+    // private static final String BASE_URL = "http://10.0.2.2:8080/"; // Android emulator localhost
+    private static final String BASE_URL = "http://172.20.10.9:8080/";  // or another IP from above
     
     private static final String PREFS_NAME = "BinomePrefs";
     private static final String TOKEN_KEY = "auth_token";
