@@ -93,6 +93,13 @@ public class MessagesFragment extends Fragment {
             "1 day ago",
             false
         ));
+
+        conversations.add(new ConversationItem(
+            "Bob Smith", 
+            "Thanks for the help with the algorithms assignment!",
+            "1 day ago",
+            false
+        ));
         
         conversations.add(new ConversationItem(
             "Carol Davis",
