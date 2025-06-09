@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">client</string>
+    <string name="app_name">Binome Matcher</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Binome Matcher</string>
+    <string name="nav_header_subtitle">Find your perfect study partner</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
@@ -13,4 +13,26 @@
     <string name="menu_student_profile">Profile</string>
     <string name="menu_projects">Projects</string>
     <string name="edit_profile">Edit</string>
+    
+    <string name="menu_dashboard">Dashboard</string>
+    <string name="menu_profile">My Profile</string>
+    <string name="menu_matches">Find Matches</string>
+    <string name="menu_messages">Messages</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_section_other">Account</string>
+    
+    <string name="profile_not_created">Complete your profile to find matches!</string>
+    <string name="create_profile">Create Profile</string>
+    <string name="welcome_user">Welcome, %1$s!</string>
+    <string name="profile_created_success">Profile created successfully!</string>
+    <string name="profile_updated_success">Profile updated successfully!</string>
+    <string name="formation_required">Please enter your formation</string>
+    <string name="skills_required">Please select at least one skill</string>
+    
+    <string name="no_matches_found">No matches found. Update your profile to see more!</string>
+    <string name="matches_loading">Finding your perfect binômes...</string>
+    
+    <string name="no_messages">No conversations yet. Start by matching with someone!</string>
+    <string name="messages_loading">Loading conversations...</string>
 </resources>

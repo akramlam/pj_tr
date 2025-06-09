@@ -6,8 +6,12 @@ services:
     working_dir: /home/gradle/project/api
     volumes:
       - ./api:/home/gradle/project/api
-      - ~/.gradle:/home/gradle/.gradle
-    command: gradle bootRun --no-daemon
+      - ./core:/home/gradle/project/core
+      - ./security:/home/gradle/project/security
+      - ./build.gradle:/home/gradle/project/build.gradle
+      - ./settings.gradle:/home/gradle/project/settings.gradle
+      - gradle-cache:/home/gradle/.gradle
+    command: gradle bootRun --no-daemon --no-watch-fs
     ports:
       - "8080:8080"
     environment:
@@ -16,6 +20,8 @@ services:
       SPRING_DATASOURCE_PASSWORD: postgres
       JWT_SECRET: ChangeThisSecretKeyForDevOnly
       JWT_EXPIRATION_MS: 3600000
+      GRADLE_USER_HOME: /home/gradle/.gradle
+      GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.vfs.watch=false"
     depends_on:
       - db
   # Reuse the same DB service from docker-compose.yml
@@ -24,7 +30,7 @@ services:
     environment:
       POSTGRES_DB: binome_database
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123
+      POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
     volumes:
@@ -33,3 +39,4 @@ services:
 volumes:
   pgdata:
     external: true
+  gradle-cache:
