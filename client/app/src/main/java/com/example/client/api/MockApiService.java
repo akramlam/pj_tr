@@ -9,10 +9,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class MockApiService implements BinomeApiService {
     
     private Context context;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault());
     
     public MockApiService(Context context) {
         this.context = context;
@@ -113,7 +117,7 @@ public class MockApiService implements BinomeApiService {
         message.setSender(ApiClient.getInstance(context).getUsername());
         message.setRecipient(request.getRecipient());
         message.setContent(request.getContent());
-        message.setTimestamp(java.time.Instant.now().toString());
+        message.setTimestamp(dateFormat.format(new Date()));
         return new MockCall<>(message);
     }
     
@@ -121,20 +125,22 @@ public class MockApiService implements BinomeApiService {
     public Call<List<ApiModels.Message>> getConversation(String otherUsername) {
         List<ApiModels.Message> messages = new ArrayList<>();
         
+        long currentTime = System.currentTimeMillis();
+        
         // Create mock conversation
         ApiModels.Message msg1 = new ApiModels.Message();
         msg1.setId(1L);
         msg1.setSender(otherUsername);
         msg1.setRecipient(ApiClient.getInstance(context).getUsername());
         msg1.setContent("Hey! I saw we're both studying Computer Science. Want to study together?");
-        msg1.setTimestamp(java.time.Instant.now().minusSeconds(3600).toString());
+        msg1.setTimestamp(dateFormat.format(new Date(currentTime - 3600000))); // 1 hour ago
         
         ApiModels.Message msg2 = new ApiModels.Message();
         msg2.setId(2L);
         msg2.setSender(ApiClient.getInstance(context).getUsername());
         msg2.setRecipient(otherUsername);
         msg2.setContent("Sure! That sounds great. What topics are you working on?");
-        msg2.setTimestamp(java.time.Instant.now().minusSeconds(1800).toString());
+        msg2.setTimestamp(dateFormat.format(new Date(currentTime - 1800000))); // 30 minutes ago
         
         messages.add(msg1);
         messages.add(msg2);
