@@ -28,6 +28,7 @@ public class ProfileService {
         profile.setUser(user);
         profile.setFormation(request.getFormation());
         profile.setSkills(request.getSkills());
+        profile.setProjects(request.getProjects());
         profile.setPreferences(request.getPreferences());
         profile = profileRepository.save(profile);
         return toDto(profile);
@@ -48,6 +49,7 @@ public class ProfileService {
         dto.setUsername(profile.getUser().getUsername());
         dto.setFormation(profile.getFormation());
         dto.setSkills(profile.getSkills());
+        dto.setProjects(profile.getProjects());
         dto.setPreferences(profile.getPreferences());
         return dto;
     }
@@ -57,6 +59,7 @@ public class ProfileService {
         private String username;
         private String formation;
         private java.util.Set<String> skills;
+        private java.util.Set<String> projects;
         private String preferences;
 
         public Long getId() { return id; }
@@ -67,6 +70,8 @@ public class ProfileService {
         public void setFormation(String formation) { this.formation = formation; }
         public java.util.Set<String> getSkills() { return skills; }
         public void setSkills(java.util.Set<String> skills) { this.skills = skills; }
+        public java.util.Set<String> getProjects() { return projects; }
+        public void setProjects(java.util.Set<String> projects) { this.projects = projects; }
         public String getPreferences() { return preferences; }
         public void setPreferences(String preferences) { this.preferences = preferences; }
     }

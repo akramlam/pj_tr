@@ -23,6 +23,11 @@ public class Profile {
     @Column(name = "skill")
     private Set<String> skills = new HashSet<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "profile_projects", joinColumns = @JoinColumn(name = "profile_id"))
+    @Column(name = "project", length = 500)
+    private Set<String> projects = new HashSet<>();
+
     @Column(length = 1000)
     private String preferences;
 
@@ -58,6 +63,14 @@ public class Profile {
 
     public void setSkills(Set<String> skills) {
         this.skills = skills;
+    }
+
+    public Set<String> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(Set<String> projects) {
+        this.projects = projects;
     }
 
     public String getPreferences() {

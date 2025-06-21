@@ -67,6 +67,7 @@ public class ApiModels {
         private Long id;
         private String formation;
         private Set<String> skills;
+        private Set<String> projects;
         private String preferences;
         private User user;
         
@@ -77,6 +78,8 @@ public class ApiModels {
         public void setFormation(String formation) { this.formation = formation; }
         public Set<String> getSkills() { return skills; }
         public void setSkills(Set<String> skills) { this.skills = skills; }
+        public Set<String> getProjects() { return projects; }
+        public void setProjects(Set<String> projects) { this.projects = projects; }
         public String getPreferences() { return preferences; }
         public void setPreferences(String preferences) { this.preferences = preferences; }
         public User getUser() { return user; }
@@ -86,17 +89,20 @@ public class ApiModels {
     public static class CreateProfileRequest {
         private String formation;
         private Set<String> skills;
+        private Set<String> projects;
         private String preferences;
         
-        public CreateProfileRequest(String formation, Set<String> skills, String preferences) {
+        public CreateProfileRequest(String formation, Set<String> skills, Set<String> projects, String preferences) {
             this.formation = formation;
             this.skills = skills;
+            this.projects = projects;
             this.preferences = preferences;
         }
         
         // Getters
         public String getFormation() { return formation; }
         public Set<String> getSkills() { return skills; }
+        public Set<String> getProjects() { return projects; }
         public String getPreferences() { return preferences; }
     }
     

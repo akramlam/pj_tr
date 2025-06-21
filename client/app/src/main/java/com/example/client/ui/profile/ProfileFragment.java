@@ -33,7 +33,7 @@ public class ProfileFragment extends Fragment {
     private TextView tvProfileStatus;
     private LinearLayout layoutProfileForm;
     private LinearLayout layoutProfileDisplay;
-    private EditText etFormation, etPreferences;
+    private EditText etFormation, etPreferences, etProjects;
     private ChipGroup chipGroupSkills;
     private Button btnSaveProfile, btnEditProfile;
     private ProgressBar progressBar;
@@ -84,6 +84,7 @@ public class ProfileFragment extends Fragment {
         layoutProfileDisplay = root.findViewById(R.id.layoutProfileDisplay);
         etFormation = root.findViewById(R.id.etFormation);
         etPreferences = root.findViewById(R.id.etPreferences);
+        etProjects = root.findViewById(R.id.etProjects);
         chipGroupSkills = root.findViewById(R.id.chipGroupSkills);
         btnSaveProfile = root.findViewById(R.id.btnSaveProfile);
         btnEditProfile = root.findViewById(R.id.btnEditProfile);
@@ -182,6 +183,7 @@ public class ProfileFragment extends Fragment {
         // Display profile information in read-only mode
         TextView tvFormationDisplay = layoutProfileDisplay.findViewById(R.id.tvFormationDisplay);
         TextView tvSkillsDisplay = layoutProfileDisplay.findViewById(R.id.tvSkillsDisplay);
+        TextView tvProjectsDisplay = layoutProfileDisplay.findViewById(R.id.tvProjectsDisplay);
         TextView tvPreferencesDisplay = layoutProfileDisplay.findViewById(R.id.tvPreferencesDisplay);
 
         tvFormationDisplay.setText("Formation: " + profile.getFormation());
@@ -198,6 +200,20 @@ public class ProfileFragment extends Fragment {
             tvSkillsDisplay.setText(skillsText.toString());
         } else {
             tvSkillsDisplay.setText("Skills: None specified");
+        }
+
+        if (profile.getProjects() != null && !profile.getProjects().isEmpty()) {
+            StringBuilder projectsText = new StringBuilder("Projects: ");
+            for (String project : profile.getProjects()) {
+                projectsText.append(project).append(", ");
+            }
+            // Remove last comma
+            if (projectsText.length() > 10) {
+                projectsText.setLength(projectsText.length() - 2);
+            }
+            tvProjectsDisplay.setText(projectsText.toString());
+        } else {
+            tvProjectsDisplay.setText("Projects: None specified");
         }
 
         String preferences = profile.getPreferences();
@@ -217,6 +233,19 @@ public class ProfileFragment extends Fragment {
             etFormation.setText(currentProfile.getFormation());
             etPreferences.setText(currentProfile.getPreferences());
             
+            // Pre-fill projects
+            if (currentProfile.getProjects() != null && !currentProfile.getProjects().isEmpty()) {
+                StringBuilder projectsText = new StringBuilder();
+                for (String project : currentProfile.getProjects()) {
+                    projectsText.append(project).append("\n");
+                }
+                // Remove last newline
+                if (projectsText.length() > 0) {
+                    projectsText.setLength(projectsText.length() - 1);
+                }
+                etProjects.setText(projectsText.toString());
+            }
+            
             // Select existing skills
             if (currentProfile.getSkills() != null) {
                 debugLogger.logAction("UI_STATE", "PROFILE", "Pre-filling form with " + 
@@ -232,9 +261,10 @@ public class ProfileFragment extends Fragment {
     private void saveProfile() {
         String formation = etFormation.getText().toString().trim();
         String preferences = etPreferences.getText().toString().trim();
+        String projectsText = etProjects.getText().toString().trim();
         
         debugLogger.logUserAction("PROFILE", "SAVE_ATTEMPT", "Formation: " + formation + 
-            ", Preferences length: " + preferences.length());
+            ", Preferences length: " + preferences.length() + ", Projects length: " + projectsText.length());
         
         if (formation.isEmpty()) {
             debugLogger.logError("PROFILE", "SAVE", "Validation failed", "Formation field is empty");
@@ -251,10 +281,23 @@ public class ProfileFragment extends Fragment {
             }
         }
         
-        debugLogger.logAction("PROFILE_DATA", "PROFILE", "Selected " + selectedSkills.size() + " skills");
+        // Parse projects from text (one per line)
+        Set<String> selectedProjects = new HashSet<>();
+        if (!projectsText.isEmpty()) {
+            String[] projectLines = projectsText.split("\n");
+            for (String project : projectLines) {
+                String trimmedProject = project.trim();
+                if (!trimmedProject.isEmpty()) {
+                    selectedProjects.add(trimmedProject);
+                }
+            }
+        }
+        
+        debugLogger.logAction("PROFILE_DATA", "PROFILE", "Selected " + selectedSkills.size() + 
+            " skills and " + selectedProjects.size() + " projects");
 
         // Create profile request
-        ApiModels.CreateProfileRequest request = new ApiModels.CreateProfileRequest(formation, selectedSkills, preferences);
+        ApiModels.CreateProfileRequest request = new ApiModels.CreateProfileRequest(formation, selectedSkills, selectedProjects, preferences);
         
         setLoading(true);
         debugLogger.logApiCall("PROFILE", "/api/profile", isEditing ? "PUT" : "POST");
@@ -309,6 +352,7 @@ public class ProfileFragment extends Fragment {
         btnEditProfile.setEnabled(!loading);
         etFormation.setEnabled(!loading);
         etPreferences.setEnabled(!loading);
+        etProjects.setEnabled(!loading);
         
         for (int i = 0; i < chipGroupSkills.getChildCount(); i++) {
             chipGroupSkills.getChildAt(i).setEnabled(!loading);
