@@ -254,14 +254,12 @@ public class ProfileFragment extends Fragment {
         debugLogger.logAction("PROFILE_DATA", "PROFILE", "Selected " + selectedSkills.size() + " skills");
 
         // Create profile request
-        ApiModels.ProfileRequest request = new ApiModels.ProfileRequest(formation, selectedSkills, preferences);
+        ApiModels.CreateProfileRequest request = new ApiModels.CreateProfileRequest(formation, selectedSkills, preferences);
         
         setLoading(true);
         debugLogger.logApiCall("PROFILE", "/api/profile", isEditing ? "PUT" : "POST");
         
-        Call<ApiModels.Profile> call = isEditing ? 
-            apiClient.getApiService().updateProfile(request) : 
-            apiClient.getApiService().createProfile(request);
+        Call<ApiModels.Profile> call = apiClient.getApiService().createProfile(request);
             
         call.enqueue(new Callback<ApiModels.Profile>() {
             @Override
