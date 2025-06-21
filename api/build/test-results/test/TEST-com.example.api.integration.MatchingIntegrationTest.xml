@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.example.api.integration.MatchingIntegrationTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2025-06-21T12:01:48" hostname="AKRAM" time="4.984">
+  <properties/>
+  <testcase name="testMatchRequestValidation()" classname="com.example.api.integration.MatchingIntegrationTest" time="4.984">
+    <failure message="org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: &lt;true&gt; but was: &lt;false&gt;
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at app//org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at app//org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at app//org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at app//org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:31)
+	at app//org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:180)
+	at app//com.example.api.integration.MatchingIntegrationTest.testMatchRequestValidation(MatchingIntegrationTest.java:115)
+	at java.base@17.0.12/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@17.0.12/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base@17.0.12/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@17.0.12/java.lang.reflect.Method.invoke(Method.java:568)
+	at app//org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:727)
+	at app//org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:156)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:147)
+	at app//org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:86)
+	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:103)
+	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:93)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at app//org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:92)
+	at app//org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:86)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$7(TestMethodTestDescriptor.java:217)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:213)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:138)
+	at app//org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:68)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:151)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@17.0.12/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at java.base@17.0.12/java.util.ArrayList.forEach(ArrayList.java:1511)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:155)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:141)
+	at app//org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:139)
+	at app//org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:138)
+	at app//org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:95)
+	at app//org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at app//org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:147)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:127)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:90)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:55)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:102)
+	at app//org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:54)
+	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:114)
+	at app//org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:86)
+	at app//org.junit.platform.launcher.core.DefaultLauncherSession$DelegatingLauncher.execute(DefaultLauncherSession.java:86)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.processAllTestClasses(JUnitPlatformTestClassProcessor.java:119)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor$CollectAllTestClassesExecutor.access$000(JUnitPlatformTestClassProcessor.java:94)
+	at org.gradle.api.internal.tasks.testing.junitplatform.JUnitPlatformTestClassProcessor.stop(JUnitPlatformTestClassProcessor.java:89)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.stop(SuiteTestClassProcessor.java:62)
+	at java.base@17.0.12/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base@17.0.12/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base@17.0.12/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base@17.0.12/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
+	at jdk.proxy2/jdk.proxy2.$Proxy5.stop(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$3.run(TestWorker.java:193)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:119)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:66)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at app//worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <system-out><![CDATA[13:01:17.582 [Test worker] INFO org.testcontainers.utility.ImageNameSubstitutor -- Image name substitution will be performed by: DefaultImageNameSubstitutor (composite of 'ConfigurationFileImageNameSubstitutor' and 'PrefixingImageNameSubstitutor')
+13:01:18.546 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
+13:01:19.516 [Test worker] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy -- Found Docker environment with local Npipe socket (npipe:////./pipe/docker_engine)
+13:01:19.518 [Test worker] INFO org.testcontainers.DockerClientFactory -- Docker host IP address is localhost
+13:01:19.559 [Test worker] INFO org.testcontainers.DockerClientFactory -- Connected to docker: 
+  Server Version: 28.0.4
+  API Version: 1.48
+  Operating System: Docker Desktop
+  Total Memory: 15854 MB
+13:01:19.699 [Test worker] INFO tc.testcontainers/ryuk:0.5.1 -- Creating container for image: testcontainers/ryuk:0.5.1
+13:01:20.211 [Test worker] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 is starting: 1de8d714ebca3d8d9bf4c98539453aba6ebefc300d5681be31b57f58a921106b
+13:01:20.848 [Test worker] INFO tc.testcontainers/ryuk:0.5.1 -- Container testcontainers/ryuk:0.5.1 started in PT1.2682228S
+13:01:20.861 [Test worker] INFO org.testcontainers.utility.RyukResourceReaper -- Ryuk started - will monitor and terminate Testcontainers containers on JVM exit
+13:01:20.862 [Test worker] INFO org.testcontainers.DockerClientFactory -- Checking the system...
+13:01:20.864 [Test worker] INFO org.testcontainers.DockerClientFactory -- ?? Docker server version should be at least 1.6.0
+13:01:20.864 [Test worker] INFO tc.postgres:15-alpine -- Creating container for image: postgres:15-alpine
+13:01:20.946 [Test worker] INFO tc.postgres:15-alpine -- Container postgres:15-alpine is starting: a802238387d0b05fca57cf243f67523eb2e370de475b68debdfe7b97dbb61497
+13:01:23.782 [Test worker] INFO tc.postgres:15-alpine -- Container postgres:15-alpine started in PT2.9183078S
+13:01:23.783 [Test worker] INFO tc.postgres:15-alpine -- Container is started (JDBC URL: jdbc:postgresql://localhost:41250/binome_test?loggerLevel=OFF)
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.1.4)
+
+2025-06-21T13:01:25.724+01:00  INFO 27476 --- [    Test worker] c.e.a.i.MatchingIntegrationTest          : Starting MatchingIntegrationTest using Java 17.0.12 with PID 27476 (started by Windows 11 in D:\pj_tr\api)
+2025-06-21T13:01:25.727+01:00 DEBUG 27476 --- [    Test worker] c.e.a.i.MatchingIntegrationTest          : Running with Spring Boot v3.1.4, Spring v6.0.12
+2025-06-21T13:01:25.728+01:00  INFO 27476 --- [    Test worker] c.e.a.i.MatchingIntegrationTest          : The following 1 profile is active: "test"
+2025-06-21T13:01:27.785+01:00  INFO 27476 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-06-21T13:01:27.932+01:00  INFO 27476 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 117 ms. Found 4 JPA repository interfaces.
+2025-06-21T13:01:31.995+01:00  INFO 27476 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2025-06-21T13:01:32.043+01:00  INFO 27476 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2025-06-21T13:01:32.046+01:00  INFO 27476 --- [    Test worker] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.13]
+2025-06-21T13:01:32.631+01:00  INFO 27476 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2025-06-21T13:01:32.636+01:00  INFO 27476 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 6864 ms
+2025-06-21T13:01:33.548+01:00  INFO 27476 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-06-21T13:01:33.912+01:00  INFO 27476 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.9.Final
+2025-06-21T13:01:33.926+01:00  INFO 27476 --- [    Test worker] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2025-06-21T13:01:34.760+01:00  INFO 27476 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2025-06-21T13:01:35.451+01:00  INFO 27476 --- [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-06-21T13:01:35.550+01:00  INFO 27476 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-06-21T13:01:36.337+01:00  INFO 27476 --- [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6a05f8d0
+2025-06-21T13:01:36.348+01:00  INFO 27476 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-06-21T13:01:38.283+01:00  INFO 27476 --- [    Test worker] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2025-06-21T13:01:40.858+01:00  INFO 27476 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+Hibernate: alter table if exists messages drop constraint if exists FKhdkwfnspwb3s60j27vpg0rpg6
+2025-06-21T13:01:40.913+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-06-21T13:01:40.914+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "messages" does not exist, skipping
+Hibernate: alter table if exists messages drop constraint if exists FK4ui4nnwntodh6wjvck53dbk9m
+2025-06-21T13:01:40.916+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-06-21T13:01:40.916+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "messages" does not exist, skipping
+Hibernate: alter table if exists profile_skills drop constraint if exists FK4l5ld8jvogl0skpynyxle9var
+2025-06-21T13:01:40.920+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-06-21T13:01:40.921+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "profile_skills" does not exist, skipping
+Hibernate: alter table if exists profiles drop constraint if exists FK410q61iev7klncmpqfuo85ivh
+2025-06-21T13:01:40.927+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-06-21T13:01:40.927+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "profiles" does not exist, skipping
+Hibernate: alter table if exists user_roles drop constraint if exists FKhfh9dx7w3ubf1co1vdev94g3f
+2025-06-21T13:01:40.930+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-06-21T13:01:40.931+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : relation "user_roles" does not exist, skipping
+Hibernate: drop table if exists debug_logs cascade
+2025-06-21T13:01:40.934+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-06-21T13:01:40.935+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "debug_logs" does not exist, skipping
+Hibernate: drop table if exists messages cascade
+2025-06-21T13:01:40.936+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-06-21T13:01:40.937+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "messages" does not exist, skipping
+Hibernate: drop table if exists profile_skills cascade
+2025-06-21T13:01:40.941+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-06-21T13:01:40.941+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "profile_skills" does not exist, skipping
+Hibernate: drop table if exists profiles cascade
+2025-06-21T13:01:40.944+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-06-21T13:01:40.945+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "profiles" does not exist, skipping
+Hibernate: drop table if exists user_roles cascade
+2025-06-21T13:01:40.947+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-06-21T13:01:40.947+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "user_roles" does not exist, skipping
+Hibernate: drop table if exists users cascade
+2025-06-21T13:01:40.949+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Warning Code: 0, SQLState: 00000
+2025-06-21T13:01:40.950+01:00  WARN 27476 --- [    Test worker] o.h.engine.jdbc.spi.SqlExceptionHelper   : table "users" does not exist, skipping
+Hibernate: create table debug_logs (id bigserial not null, timestamp timestamp(6) not null, app_version varchar(50), device_info varchar(100), screen varchar(500), details varchar(1000), error_message varchar(2000), action varchar(255) not null, user_id varchar(255) not null, primary key (id))
+Hibernate: create table messages (id bigserial not null, recipient_id bigint not null, sender_id bigint not null, timestamp timestamp(6) with time zone not null, content varchar(2000) not null, primary key (id))
+Hibernate: create table profile_skills (profile_id bigint not null, skill varchar(255))
+Hibernate: create table profiles (id bigserial not null, user_id bigint not null unique, preferences varchar(1000), formation varchar(255) not null, primary key (id))
+Hibernate: create table user_roles (user_id bigint not null, role varchar(255))
+Hibernate: create table users (id bigserial not null, email varchar(255) not null unique, password varchar(255) not null, username varchar(255) not null unique, primary key (id))
+Hibernate: alter table if exists messages add constraint FKhdkwfnspwb3s60j27vpg0rpg6 foreign key (recipient_id) references users
+Hibernate: alter table if exists messages add constraint FK4ui4nnwntodh6wjvck53dbk9m foreign key (sender_id) references users
+Hibernate: alter table if exists profile_skills add constraint FK4l5ld8jvogl0skpynyxle9var foreign key (profile_id) references profiles
+Hibernate: alter table if exists profiles add constraint FK410q61iev7klncmpqfuo85ivh foreign key (user_id) references users
+Hibernate: alter table if exists user_roles add constraint FKhfh9dx7w3ubf1co1vdev94g3f foreign key (user_id) references users
+2025-06-21T13:01:41.029+01:00  INFO 27476 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-06-21T13:01:42.562+01:00 DEBUG 27476 --- [    Test worker] c.e.s.jwt.JwtAuthenticationFilter        : Filter 'jwtAuthenticationFilter' configured for use
+2025-06-21T13:01:42.868+01:00  INFO 27476 --- [    Test worker] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-06-21T13:01:46.195+01:00  WARN 27476 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-06-21T13:01:47.602+01:00  INFO 27476 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@3a756784, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3602dbdb, org.springframework.security.web.context.SecurityContextHolderFilter@2c8dd0dd, org.springframework.security.web.header.HeaderWriterFilter@4c4f5970, org.springframework.security.web.authentication.logout.LogoutFilter@8ad9477, com.example.security.jwt.JwtAuthenticationFilter@4f2aeb97, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@255baccf, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6e31514b, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2cff9100, org.springframework.security.web.session.SessionManagementFilter@3309da87, org.springframework.security.web.access.ExceptionTranslationFilter@35476da7, org.springframework.security.web.access.intercept.AuthorizationFilter@663d48d1]
+2025-06-21T13:01:48.639+01:00  INFO 27476 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 41336 (http) with context path ''
+2025-06-21T13:01:48.669+01:00  INFO 27476 --- [    Test worker] c.e.a.i.MatchingIntegrationTest          : Started MatchingIntegrationTest in 23.926 seconds (process running for 37.17)
+2025-06-21T13:01:50.417+01:00  INFO 27476 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-21T13:01:50.418+01:00  INFO 27476 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-06-21T13:01:50.421+01:00  INFO 27476 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+Hibernate: select u1_0.id from users u1_0 where u1_0.username=? fetch first ? rows only
+Hibernate: select u1_0.id from users u1_0 where u1_0.email=? fetch first ? rows only
+Hibernate: insert into users (email,password,username) values (?,?,?)
+Hibernate: insert into user_roles (user_id,role) values (?,?)
+Hibernate: select u1_0.id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: select r1_0.user_id,r1_0.role from user_roles r1_0 where r1_0.user_id=?
+Hibernate: select u1_0.id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: select r1_0.user_id,r1_0.role from user_roles r1_0 where r1_0.user_id=?
+Hibernate: select p1_0.id,p1_0.formation,p1_0.preferences,p1_0.user_id from profiles p1_0 where p1_0.user_id=?
+Hibernate: insert into profiles (formation,preferences,user_id) values (?,?,?)
+Hibernate: insert into profile_skills (profile_id,skill) values (?,?)
+Hibernate: insert into profile_skills (profile_id,skill) values (?,?)
+Hibernate: insert into profile_skills (profile_id,skill) values (?,?)
+Hibernate: select u1_0.id from users u1_0 where u1_0.username=? fetch first ? rows only
+Hibernate: select u1_0.id from users u1_0 where u1_0.email=? fetch first ? rows only
+Hibernate: insert into users (email,password,username) values (?,?,?)
+Hibernate: insert into user_roles (user_id,role) values (?,?)
+Hibernate: select u1_0.id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: select r1_0.user_id,r1_0.role from user_roles r1_0 where r1_0.user_id=?
+Hibernate: select u1_0.id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: select r1_0.user_id,r1_0.role from user_roles r1_0 where r1_0.user_id=?
+Hibernate: select p1_0.id,p1_0.formation,p1_0.preferences,p1_0.user_id from profiles p1_0 where p1_0.user_id=?
+Hibernate: insert into profiles (formation,preferences,user_id) values (?,?,?)
+Hibernate: insert into profile_skills (profile_id,skill) values (?,?)
+Hibernate: insert into profile_skills (profile_id,skill) values (?,?)
+Hibernate: insert into profile_skills (profile_id,skill) values (?,?)
+Hibernate: select u1_0.id from users u1_0 where u1_0.username=? fetch first ? rows only
+Hibernate: select u1_0.id from users u1_0 where u1_0.email=? fetch first ? rows only
+Hibernate: insert into users (email,password,username) values (?,?,?)
+Hibernate: insert into user_roles (user_id,role) values (?,?)
+Hibernate: select u1_0.id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: select r1_0.user_id,r1_0.role from user_roles r1_0 where r1_0.user_id=?
+Hibernate: select u1_0.id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: select r1_0.user_id,r1_0.role from user_roles r1_0 where r1_0.user_id=?
+Hibernate: select p1_0.id,p1_0.formation,p1_0.preferences,p1_0.user_id from profiles p1_0 where p1_0.user_id=?
+Hibernate: insert into profiles (formation,preferences,user_id) values (?,?,?)
+Hibernate: insert into profile_skills (profile_id,skill) values (?,?)
+Hibernate: insert into profile_skills (profile_id,skill) values (?,?)
+Hibernate: insert into profile_skills (profile_id,skill) values (?,?)
+Hibernate: select u1_0.id,u1_0.email,u1_0.password,u1_0.username from users u1_0 where u1_0.username=?
+Hibernate: select r1_0.user_id,r1_0.role from user_roles r1_0 where r1_0.user_id=?
+2025-06-21T13:01:53.574+01:00  INFO 27476 --- [    Test worker] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2025-06-21T13:01:53.577+01:00  INFO 27476 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2025-06-21T13:01:53.583+01:00  WARN 27476 --- [    Test worker] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base@17.0.12/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base@17.0.12/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:252)
+ java.base@17.0.12/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1672)
+ java.base@17.0.12/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base@17.0.12/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base@17.0.12/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1062)
+ java.base@17.0.12/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1122)
+ java.base@17.0.12/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635)
+ java.base@17.0.12/java.lang.Thread.run(Thread.java:842)
+2025-06-21T13:01:53.595+01:00  INFO 27476 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+Hibernate: alter table if exists messages drop constraint if exists FKhdkwfnspwb3s60j27vpg0rpg6
+Hibernate: alter table if exists messages drop constraint if exists FK4ui4nnwntodh6wjvck53dbk9m
+Hibernate: alter table if exists profile_skills drop constraint if exists FK4l5ld8jvogl0skpynyxle9var
+Hibernate: alter table if exists profiles drop constraint if exists FK410q61iev7klncmpqfuo85ivh
+Hibernate: alter table if exists user_roles drop constraint if exists FKhfh9dx7w3ubf1co1vdev94g3f
+Hibernate: drop table if exists debug_logs cascade
+Hibernate: drop table if exists messages cascade
+Hibernate: drop table if exists profile_skills cascade
+Hibernate: drop table if exists profiles cascade
+Hibernate: drop table if exists user_roles cascade
+Hibernate: drop table if exists users cascade
+2025-06-21T13:01:53.656+01:00  INFO 27476 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2025-06-21T13:01:53.665+01:00  INFO 27476 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

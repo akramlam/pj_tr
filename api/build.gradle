@@ -1,10 +1,15 @@
 plugins {
     id 'org.springframework.boot' version '3.1.4'
     id 'io.spring.dependency-management'
+    id 'jacoco'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '11'
+}
 
 dependencies {
     implementation project(':core')
@@ -12,15 +17,50 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.postgresql:postgresql:42.6.0'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
 
+    // Test dependencies
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testImplementation 'org.testcontainers:junit-jupiter:1.18.3'
     testImplementation 'org.testcontainers:postgresql:1.18.3'
+    testImplementation 'com.h2database:h2:2.2.220'
+    
+    // JUnit Platform Suite for test suites
+    testImplementation 'org.junit.platform:junit-platform-suite:1.9.3'
+    testImplementation 'org.junit.platform:junit-platform-suite-api:1.9.3'
+    testImplementation 'org.junit.platform:junit-platform-suite-engine:1.9.3'
+    
+    // Additional test utilities
+    testImplementation 'com.fasterxml.jackson.core:jackson-databind'
+    testImplementation 'org.springframework.boot:spring-boot-test-autoconfigure'
+    
     // Spring Boot DevTools for hot reload during development
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
+}
+
+// Test configuration
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+    }
+}
+
+// Jacoco configuration for coverage reports
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir('reports/jacoco/test/html')
+    }
 }
 
 // Ensure devtools is not included in production runtime

@@ -2,9 +2,13 @@ package com.example.api.controller;
 
 import com.example.api.service.MatchService;
 import com.example.api.service.MatchService.MatchDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import java.security.Principal;
 import java.util.List;
 import java.util.Set;
@@ -25,34 +29,46 @@ public class MatchController {
      */
     @GetMapping("/potential")
     public ResponseEntity<List<PotentialMatchDto>> getPotentialMatches(Principal principal) {
-        List<MatchDto> matches = matchService.findMatches(principal.getName(), 20);
-        
-        List<PotentialMatchDto> potentialMatches = matches.stream()
-                .map(match -> {
-                    PotentialMatchDto dto = new PotentialMatchDto();
-                    dto.userId = (long) match.getUsername().hashCode(); // Simple ID generation
-                    dto.username = match.getUsername();
-                    dto.formation = match.getFormation();
-                    
-                    // Calculate common skills and compatibility
-                    Set<String> commonSkills = new HashSet<>(match.getSkills());
-                    dto.commonSkills = commonSkills;
-                    dto.compatibilityScore = Math.min(95, match.getScore() * 15 + 40); // Scale to percentage
-                    
-                    return dto;
-                })
-                .collect(Collectors.toList());
-        
-        return ResponseEntity.ok(potentialMatches);
+        try {
+            List<MatchDto> matches = matchService.findMatches(principal.getName(), 20);
+            
+            List<PotentialMatchDto> potentialMatches = matches.stream()
+                    .map(match -> {
+                        PotentialMatchDto dto = new PotentialMatchDto();
+                        dto.userId = match.getUserId(); // Use real user ID instead of hashCode
+                        dto.username = match.getUsername();
+                        dto.formation = match.getFormation();
+                        
+                        // Calculate common skills and compatibility
+                        Set<String> commonSkills = new HashSet<>(match.getSkills());
+                        dto.commonSkills = commonSkills;
+                        dto.compatibilityScore = Math.min(95, match.getScore() * 15 + 40); // Scale to percentage
+                        
+                        return dto;
+                    })
+                    .collect(Collectors.toList());
+            
+            return ResponseEntity.ok(potentialMatches);
+        } catch (RuntimeException e) {
+            if (e.getMessage().contains("Profile not found")) {
+                return ResponseEntity.badRequest().build();
+            }
+            throw e;
+        }
     }
 
     /**
      * Send a match request (like/pass)
      */
-    @PostMapping("/request")
-    public ResponseEntity<MatchResponseDto> sendMatchRequest(
-            @RequestBody MatchRequestDto request,
+    @PostMapping("/action")
+    public ResponseEntity<MatchResponseDto> sendMatchAction(
+            @Valid @RequestBody MatchRequestDto request,
             Principal principal) {
+        
+        // Validate user ID exists (basic check)
+        if (request.targetUserId == null || request.targetUserId <= 0 || request.targetUserId > 100000) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
         
         // For now, simulate match logic
         // In a real app, you'd store the like/pass in database
@@ -70,6 +86,16 @@ public class MatchController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * Legacy endpoint for backward compatibility
+     */
+    @PostMapping("/request")
+    public ResponseEntity<MatchResponseDto> sendMatchRequest(
+            @Valid @RequestBody MatchRequestDto request,
+            Principal principal) {
+        return sendMatchAction(request, principal);
+    }
+
     // DTOs to match frontend expectations
     public static class PotentialMatchDto {
         public Long userId;
@@ -80,7 +106,11 @@ public class MatchController {
     }
 
     public static class MatchRequestDto {
+        @NotNull
         public Long targetUserId;
+        
+        @NotNull
+        @Pattern(regexp = "LIKE|PASS", message = "Action must be either LIKE or PASS")
         public String action; // "LIKE" or "PASS"
     }
 

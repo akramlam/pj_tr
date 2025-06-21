@@ -177,4 +177,28 @@ public class ApiModels {
         public String getMessage() { return message; }
         public void setMessage(String message) { this.message = message; }
     }
+    
+    // Conversation models
+    public static class Conversation {
+        public String username;
+        public String displayName;
+        public String lastMessage;
+        public String timestamp;
+        public boolean hasUnreadMessages;
+        public int unreadCount;
+        
+        // Getters and setters
+        public String getUsername() { return username; }
+        public void setUsername(String username) { this.username = username; }
+        public String getDisplayName() { return displayName; }
+        public void setDisplayName(String displayName) { this.displayName = displayName; }
+        public String getLastMessage() { return lastMessage; }
+        public void setLastMessage(String lastMessage) { this.lastMessage = lastMessage; }
+        public String getTimestamp() { return timestamp; }
+        public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
+        public boolean hasUnreadMessages() { return hasUnreadMessages; }
+        public void setHasUnreadMessages(boolean hasUnreadMessages) { this.hasUnreadMessages = hasUnreadMessages; }
+        public int getUnreadCount() { return unreadCount; }
+        public void setUnreadCount(int unreadCount) { this.unreadCount = unreadCount; }
+    }
 } 

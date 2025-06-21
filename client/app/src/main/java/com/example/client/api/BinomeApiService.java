@@ -17,7 +17,13 @@ public interface BinomeApiService {
     @POST("api/profile")
     Call<ApiModels.Profile> createProfile(@Body ApiModels.CreateProfileRequest request);
     
+    @PUT("api/profile")
+    Call<ApiModels.Profile> updateProfile(@Body ApiModels.CreateProfileRequest request);
+    
     @GET("api/profile")
+    Call<ApiModels.Profile> getProfile();
+    
+    @GET("api/profile/current")
     Call<ApiModels.Profile> getCurrentProfile();
     
     // Matching endpoints
@@ -27,10 +33,26 @@ public interface BinomeApiService {
     @POST("api/matches/request")
     Call<ApiModels.MatchResponse> sendMatchRequest(@Body ApiModels.MatchRequest request);
     
+    @POST("api/matches/action")
+    Call<ApiModels.MatchResponse> sendMatchAction(@Body ApiModels.MatchRequest request);
+    
     // Messaging endpoints
-    @POST("api/messages")
+    @GET("api/messages/conversations")
+    Call<List<ApiModels.Conversation>> getConversations();
+    
+    @GET("api/messages/conversation/{otherUsername}")
+    Call<List<ApiModels.Message>> getConversationMessages(@Path("otherUsername") String otherUsername);
+    
+    @POST("api/messages/send")
     Call<ApiModels.Message> sendMessage(@Body ApiModels.SendMessageRequest request);
     
+    @POST("api/messages/conversation/{otherUsername}/read")
+    Call<Void> markConversationAsRead(@Path("otherUsername") String otherUsername);
+    
+    // Legacy messaging endpoints for backward compatibility
+    @POST("api/messages")
+    Call<ApiModels.Message> sendMessageLegacy(@Body ApiModels.SendMessageRequest request);
+    
     @GET("api/messages")
-    Call<List<ApiModels.Message>> getConversation(@Query("user") String otherUsername);
+    Call<List<ApiModels.Message>> getConversationLegacy(@Query("user") String otherUsername);
 } 
