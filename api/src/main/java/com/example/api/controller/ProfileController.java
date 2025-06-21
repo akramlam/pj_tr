@@ -17,14 +17,27 @@ public class ProfileController {
     }
 
     @PostMapping
-    public ResponseEntity<ProfileDto> createOrUpdate(@RequestBody ProfileDto request,
-                                                     Principal principal) {
+    public ResponseEntity<ProfileDto> createProfile(@RequestBody ProfileDto request,
+                                                   Principal principal) {
+        ProfileDto dto = profileService.createOrUpdate(principal.getName(), request);
+        return ResponseEntity.ok(dto);
+    }
+
+    @PutMapping
+    public ResponseEntity<ProfileDto> updateProfile(@RequestBody ProfileDto request,
+                                                   Principal principal) {
         ProfileDto dto = profileService.createOrUpdate(principal.getName(), request);
         return ResponseEntity.ok(dto);
     }
 
     @GetMapping
-    public ResponseEntity<ProfileDto> getCurrent(Principal principal) {
+    public ResponseEntity<ProfileDto> getProfile(Principal principal) {
+        ProfileDto dto = profileService.getByUsername(principal.getName());
+        return ResponseEntity.ok(dto);
+    }
+
+    @GetMapping("/current")
+    public ResponseEntity<ProfileDto> getCurrentProfile(Principal principal) {
         ProfileDto dto = profileService.getByUsername(principal.getName());
         return ResponseEntity.ok(dto);
     }

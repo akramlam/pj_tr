@@ -49,8 +49,8 @@ public class MatchController {
     /**
      * Send a match request (like/pass)
      */
-    @PostMapping("/request")
-    public ResponseEntity<MatchResponseDto> sendMatchRequest(
+    @PostMapping("/action")
+    public ResponseEntity<MatchResponseDto> sendMatchAction(
             @RequestBody MatchRequestDto request,
             Principal principal) {
         
@@ -68,6 +68,16 @@ public class MatchController {
         }
         
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * Legacy endpoint for backward compatibility
+     */
+    @PostMapping("/request")
+    public ResponseEntity<MatchResponseDto> sendMatchRequest(
+            @RequestBody MatchRequestDto request,
+            Principal principal) {
+        return sendMatchAction(request, principal);
     }
 
     // DTOs to match frontend expectations

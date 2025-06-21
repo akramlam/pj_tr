@@ -4,55 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/design_default_color_primary"
+    android:background="@color/primary_blue"
     android:padding="24dp"
     tools:context=".LoginActivity">
 
-    <!-- App Logo/Title -->
-    <ImageView
-        android:id="@+id/ivLogo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="64dp"
-        android:src="@mipmap/ic_launcher"
+    <!-- App Logo/Title Section -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/logoCard"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_marginTop="48dp"
+        app:cardCornerRadius="70dp"
+        app:cardElevation="8dp"
+        app:cardBackgroundColor="@color/surface_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_people"
+            app:tint="@color/primary_blue" />
+
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/tvAppTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="Binome Matcher"
-        android:textColor="@android:color/white"
-        android:textSize="28sp"
+        android:textColor="@color/text_on_primary"
+        android:textSize="32sp"
         android:textStyle="bold"
+        android:letterSpacing="0.02"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivLogo" />
+        app:layout_constraintTop_toBottomOf="@+id/logoCard" />
 
     <TextView
         android:id="@+id/tvSubtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Find your perfect study partner"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:alpha="0.8"
+        android:text="🎯 Find your perfect study partner"
+        android:textColor="@color/text_on_primary"
+        android:textSize="18sp"
+        android:alpha="0.9"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvAppTitle" />
 
-    <!-- Login Form -->
+    <!-- Enhanced Login Form -->
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
+        android:layout_marginTop="56dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="12dp"
+        app:cardBackgroundColor="@color/surface_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSubtitle">
@@ -61,15 +76,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="24dp">
+            android:padding="32dp">
 
-            <!-- Username Field -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome Back!"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_primary"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign in to continue your learning journey"
+                android:textSize="16sp"
+                android:textColor="@color/text_secondary"
+                android:layout_gravity="center"
+                android:layout_marginBottom="32dp"
+                android:textAlignment="center" />
+
+            <!-- Username Field with Icon -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:boxStrokeColor="@color/design_default_color_primary"
-                app:hintTextColor="@color/design_default_color_primary">
+                android:layout_marginBottom="20dp"
+                app:boxStrokeColor="@color/primary_blue"
+                app:hintTextColor="@color/primary_blue"
+                app:startIconDrawable="@drawable/ic_person"
+                app:startIconTint="@color/primary_blue"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etUsername"
@@ -77,18 +118,27 @@
                     android:layout_height="wrap_content"
                     android:hint="Username"
                     android:inputType="text"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:textSize="16sp"
+                    android:paddingVertical="16dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Password Field -->
+            <!-- Password Field with Icon -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:boxStrokeColor="@color/design_default_color_primary"
-                app:hintTextColor="@color/design_default_color_primary"
-                app:passwordToggleEnabled="true">
+                android:layout_marginBottom="32dp"
+                app:boxStrokeColor="@color/primary_blue"
+                app:hintTextColor="@color/primary_blue"
+                app:startIconDrawable="@drawable/ic_settings"
+                app:startIconTint="@color/primary_blue"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/primary_blue"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusBottomEnd="12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etPassword"
@@ -96,30 +146,40 @@
                     android:layout_height="wrap_content"
                     android:hint="Password"
                     android:inputType="textPassword"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:textSize="16sp"
+                    android:paddingVertical="16dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Login Button -->
+            <!-- Enhanced Login Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginBottom="12dp"
-                android:text="LOGIN"
-                android:textSize="16sp"
-                app:cornerRadius="8dp" />
+                android:layout_height="60dp"
+                android:layout_marginBottom="16dp"
+                android:text="Sign In"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:backgroundTint="@color/primary_blue"
+                app:cornerRadius="30dp"
+                app:elevation="6dp"
+                android:textColor="@color/text_on_primary" />
 
-            <!-- Register Button -->
+            <!-- Enhanced Register Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnRegister"
                 android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginBottom="12dp"
-                android:text="REGISTER"
-                android:textSize="16sp"
+                android:layout_height="60dp"
+                android:layout_marginBottom="16dp"
+                android:text="Create Account"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_blue"
                 android:visibility="gone"
-                app:cornerRadius="8dp"
+                app:cornerRadius="30dp"
+                app:strokeColor="@color/primary_blue"
+                app:strokeWidth="2dp"
                 style="@style/Widget.Material3.Button.OutlinedButton" />
 
             <!-- Progress Bar -->
@@ -128,27 +188,40 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="12dp"
+                android:indeterminateTint="@color/primary_blue"
                 android:visibility="gone" />
 
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Register Prompt -->
-    <TextView
-        android:id="@+id/tvRegisterPrompt"
+    <!-- Enhanced Register Prompt -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Don't have an account? Register"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:background="?android:attr/selectableItemBackground"
-        android:padding="8dp"
+        android:layout_marginTop="32dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@color/surface_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/cardLogin">
+
+        <TextView
+            android:id="@+id/tvRegisterPrompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't have an account? Register here"
+            android:textColor="@color/primary_blue"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:background="?android:attr/selectableItemBackground"
+            android:padding="16dp"
+            android:drawableStart="@drawable/ic_person"
+            android:drawablePadding="8dp"
+            app:drawableTint="@color/primary_blue" />
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout> 
