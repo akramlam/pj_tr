@@ -45,6 +45,14 @@ public class MessageService {
                 .map(this::toDto)
                 .collect(Collectors.toList());
     }
+    
+    @Transactional(readOnly = true)
+    public List<ConversationDto> getConversationsForUser(String username) {
+        return messageRepository.findConversationsForUser(username)
+                .stream()
+                .map(msg -> toConversationDto(msg, username))
+                .collect(Collectors.toList());
+    }
 
     private MessageDto toDto(Message msg) {
         return new MessageDto(
@@ -53,6 +61,19 @@ public class MessageService {
                 msg.getRecipient().getUsername(),
                 msg.getContent(),
                 msg.getTimestamp()
+        );
+    }
+    
+    private ConversationDto toConversationDto(Message lastMessage, String currentUser) {
+        String otherUser = lastMessage.getSender().getUsername().equals(currentUser) 
+                ? lastMessage.getRecipient().getUsername() 
+                : lastMessage.getSender().getUsername();
+                
+        return new ConversationDto(
+                otherUser,
+                lastMessage.getContent(),
+                lastMessage.getTimestamp(),
+                false  // For now, we'll assume no unread messages
         );
     }
 
@@ -76,5 +97,24 @@ public class MessageService {
         public String getRecipient() { return recipient; }
         public String getContent() { return content; }
         public Instant getTimestamp() { return timestamp; }
+    }
+    
+    public static class ConversationDto {
+        private String otherUser;
+        private String lastMessage;
+        private Instant timestamp;
+        private boolean hasUnreadMessages;
+
+        public ConversationDto(String otherUser, String lastMessage, Instant timestamp, boolean hasUnreadMessages) {
+            this.otherUser = otherUser;
+            this.lastMessage = lastMessage;
+            this.timestamp = timestamp;
+            this.hasUnreadMessages = hasUnreadMessages;
+        }
+
+        public String getOtherUser() { return otherUser; }
+        public String getLastMessage() { return lastMessage; }
+        public Instant getTimestamp() { return timestamp; }
+        public boolean isHasUnreadMessages() { return hasUnreadMessages; }
     }
 }

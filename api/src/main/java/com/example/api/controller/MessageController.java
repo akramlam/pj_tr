@@ -2,6 +2,7 @@ package com.example.api.controller;
 
 import com.example.api.service.MessageService;
 import com.example.api.service.MessageService.MessageDto;
+import com.example.api.service.MessageService.ConversationDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,14 @@ public class MessageController {
                 principal.getName(), otherUser
         );
         return ResponseEntity.ok(msgs);
+    }
+    
+    @GetMapping("/conversations")
+    public ResponseEntity<List<ConversationDto>> getConversations(Principal principal) {
+        List<ConversationDto> conversations = messageService.getConversationsForUser(
+                principal.getName()
+        );
+        return ResponseEntity.ok(conversations);
     }
 
     public static class SendRequest {

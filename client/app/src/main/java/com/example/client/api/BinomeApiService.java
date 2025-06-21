@@ -33,4 +33,7 @@ public interface BinomeApiService {
     
     @GET("api/messages")
     Call<List<ApiModels.Message>> getConversation(@Query("user") String otherUsername);
+    
+    @GET("api/messages/conversations")
+    Call<List<ApiModels.Conversation>> getConversations();
 } 

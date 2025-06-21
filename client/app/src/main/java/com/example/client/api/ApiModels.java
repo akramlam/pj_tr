@@ -135,6 +135,23 @@ public class ApiModels {
         public String getContent() { return content; }
     }
     
+    public static class Conversation {
+        private String otherUser;
+        private String lastMessage;
+        private String timestamp;
+        private boolean hasUnreadMessages;
+        
+        // Getters and setters
+        public String getOtherUser() { return otherUser; }
+        public void setOtherUser(String otherUser) { this.otherUser = otherUser; }
+        public String getLastMessage() { return lastMessage; }
+        public void setLastMessage(String lastMessage) { this.lastMessage = lastMessage; }
+        public String getTimestamp() { return timestamp; }
+        public void setTimestamp(String timestamp) { this.timestamp = timestamp; }
+        public boolean isHasUnreadMessages() { return hasUnreadMessages; }
+        public void setHasUnreadMessages(boolean hasUnreadMessages) { this.hasUnreadMessages = hasUnreadMessages; }
+    }
+    
     // Match models
     public static class PotentialMatch {
         public Long userId;

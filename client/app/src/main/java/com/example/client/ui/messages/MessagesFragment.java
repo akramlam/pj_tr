@@ -72,8 +72,52 @@ public class MessagesFragment extends Fragment {
     }
     
     private void loadConversations() {
-        // For now, we'll create mock conversations since the backend might need conversation list endpoint
-        createMockConversations();
+        apiService.getConversations().enqueue(new Callback<List<ApiModels.Conversation>>() {
+            @Override
+            public void onResponse(Call<List<ApiModels.Conversation>> call, Response<List<ApiModels.Conversation>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    conversations.clear();
+                    for (ApiModels.Conversation conv : response.body()) {
+                        conversations.add(new ConversationItem(
+                            conv.getOtherUser(),
+                            conv.getLastMessage(),
+                            formatTimestamp(conv.getTimestamp()),
+                            conv.isHasUnreadMessages()
+                        ));
+                    }
+                    if (getActivity() != null) {
+                        getActivity().runOnUiThread(() -> {
+                            conversationsAdapter.notifyDataSetChanged();
+                            updateEmptyState();
+                        });
+                    }
+                } else {
+                    // Fall back to mock data if API fails
+                    createMockConversations();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ApiModels.Conversation>> call, Throwable t) {
+                if (getContext() != null) {
+                    Toast.makeText(getContext(), "Failed to load conversations: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+                // Fall back to mock data if API fails
+                createMockConversations();
+            }
+        });
+    }
+    
+    private String formatTimestamp(String timestamp) {
+        // TODO: Implement proper timestamp formatting
+        // For now, just return a simple format
+        if (timestamp == null) return "Unknown";
+        try {
+            // Simple formatting - in a real app you'd use proper date formatting
+            return timestamp.substring(0, Math.min(10, timestamp.length()));
+        } catch (Exception e) {
+            return "Recently";
+        }
     }
     
     private void createMockConversations() {
@@ -116,13 +160,10 @@ public class MessagesFragment extends Fragment {
     }
     
     private void onConversationSelected(ConversationItem conversation) {
-        // For now, show a toast. Later this could navigate to a chat detail fragment
-        Toast.makeText(getContext(), "Opening chat with " + conversation.getName(), Toast.LENGTH_SHORT).show();
-        
-        // TODO: Navigate to conversation detail fragment
-        // Bundle args = new Bundle();
-        // args.putString("username", conversation.getName());
-        // Navigation.findNavController(requireView()).navigate(R.id.nav_conversation_detail, args);
+        // Navigate to conversation detail fragment
+        Bundle args = new Bundle();
+        args.putString("username", conversation.getName());
+        Navigation.findNavController(requireView()).navigate(R.id.nav_conversation_detail, args);
     }
     
     // Inner class for conversation items
