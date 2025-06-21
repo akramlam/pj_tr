@@ -199,13 +199,10 @@ public class MessagesFragment extends Fragment {
     private void onConversationSelected(ConversationItem conversation) {
         debugLogger.logUserAction("MESSAGES", "CONVERSATION_SELECTED", "User selected conversation with: " + conversation.getName());
         
-        // For now, show a toast. Later this could navigate to a chat detail fragment
-        Toast.makeText(getContext(), "Opening chat with " + conversation.getName(), Toast.LENGTH_SHORT).show();
-        
-        // TODO: Navigate to conversation detail fragment
-        // Bundle args = new Bundle();
-        // args.putString("username", conversation.getName());
-        // Navigation.findNavController(requireView()).navigate(R.id.nav_conversation_detail, args);
+        // Navigate to conversation detail fragment
+        Bundle args = new Bundle();
+        args.putString("username", conversation.getName());
+        Navigation.findNavController(requireView()).navigate(R.id.nav_conversation_detail, args);
     }
     
     private boolean isNetworkError(Throwable t) {
