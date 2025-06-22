@@ -14,23 +14,29 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 public class ApiClient {
-    // private static final String BASE_URL = "http://10.0.2.2:8080/"; // Android emulator localhost
-    private static final String BASE_URL = "http://172.20.10.9:8080/";  // or another IP from above
+    // Default URLs for different environments
+    private static final String DEFAULT_EMULATOR_URL = "http://10.0.2.2:8080/";
+    private static final String DEFAULT_DEVICE_URL = "http://172.20.10.9:8080/";
     
     private static final String PREFS_NAME = "BinomePrefs";
     private static final String TOKEN_KEY = "auth_token";
     private static final String USERNAME_KEY = "username";
     private static final String MOCK_MODE_KEY = "mock_mode";
+    private static final String BASE_URL_KEY = "base_url";
     
     private static ApiClient instance;
     private BinomeApiService apiService;
     private MockApiService mockApiService;
     private SharedPreferences sharedPreferences;
     private boolean isMockMode = false;
+    private String baseUrl;
     
     private ApiClient(Context context) {
         // Initialize SharedPreferences for token storage
         sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        
+        // Get base URL from preferences or use default
+        baseUrl = sharedPreferences.getString(BASE_URL_KEY, DEFAULT_EMULATOR_URL);
         
         // Check if we should use mock mode
         isMockMode = sharedPreferences.getBoolean(MOCK_MODE_KEY, false);
@@ -75,7 +81,7 @@ public class ApiClient {
         
         // Create Retrofit instance
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
+                .baseUrl(baseUrl)
                 .client(httpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -132,5 +138,25 @@ public class ApiClient {
     public String getAuthHeader() {
         String token = getToken();
         return token != null ? "Bearer " + token : null;
+    }
+    
+    // Method to update base URL
+    public void setBaseUrl(String newBaseUrl) {
+        this.baseUrl = newBaseUrl;
+        sharedPreferences.edit().putString(BASE_URL_KEY, newBaseUrl).apply();
+        // Note: Changing base URL requires app restart to take effect
+    }
+    
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+    
+    // Helper method to use appropriate URL based on environment
+    public void useEmulatorUrl() {
+        setBaseUrl(DEFAULT_EMULATOR_URL);
+    }
+    
+    public void useDeviceUrl() {
+        setBaseUrl(DEFAULT_DEVICE_URL);
     }
 } 

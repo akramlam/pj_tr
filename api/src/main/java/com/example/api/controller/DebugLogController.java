@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/debug")
-@CrossOrigin(origins = "*")
 public class DebugLogController {
     
     @Autowired

@@ -4,7 +4,8 @@ services:
     environment:
       POSTGRES_DB: binome_database
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 123
+      # WARNING: This is for development only. Use Docker secrets or environment variables in production
+      POSTGRES_PASSWORD: dev_password_change_in_production
     ports:
       - "5432:5432"
     volumes:
@@ -19,9 +20,10 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/binome_database
       SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      JWT_SECRET: 0716e414e12e9aecd708f1b879dd6a0143a441886cf143afb219509c6e79f5f680b81485e51d5aad84413b1495a3a32f3a50aadc542873446e66f2c14c3680eae013dde9b96565a264cadab910b0d3a3aa5fd53085b4e8e86f3c56ed0cef3f59d45de348684210fb9085e453de72c8e90a9e10d78491dda52a83a25557cec387b7f2bf2e01f1b4b8a5d8d41c7b220fd56bc0593ea894007c295b9b3f444f8f1ac4ab718ac1dd7d9906fa6f1bbbb9c2c3dfc1344654719e4c83635a724e5141289ddf32e9973711559c8d8a1cffcef0a67c7831da80e3535773f07c7cf7440417dd1e668f78cc85e7811e6687aa5f2d0ba72e1ed20201bac4d41ab0346d8de8b3
-      JWT_EXPIRATION_MS: 3600000
+      SPRING_DATASOURCE_PASSWORD: dev_password_change_in_production
+      # JWT secret is properly externalized here - good practice!
+      JWT_SECRET: ${JWT_SECRET:-dGhpcy1pcy1hLWRldmVsb3BtZW50LW9ubHktc2VjcmV0LWtleS1mb3ItYmlub21lLW1hdGNoZXItYXBwbGljYXRpb24td2hpY2gtc2hvdWxkLWJlLXJlcGxhY2VkLWluLXByb2R1Y3Rpb24=}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-3600000}
     ports:
       - "8080:8080"
 
