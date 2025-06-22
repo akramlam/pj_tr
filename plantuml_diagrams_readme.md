@@ -2,54 +2,52 @@
 
 Clean black and white PlantUML diagrams for the Binome Matcher application.
 
-## 📊 Report & Documentation Diagram
+## 📊 Report Diagrams (Essential & Clean)
 
-### **Detailed Report Diagram** (`binome_matcher_detailed_report_diagram.puml`) ⭐⭐⭐
-**Best for technical reports and documentation** - Complete system architecture:
-- **All 4 domain entities** with complete attributes (User, Profile, Message, DebugLog)
-- **6 REST controllers** with all endpoint methods
-- **6 business services** with key operations
-- **4 data repositories** with data access methods  
-- **3 security components** (JWT authentication flow)
-- **Android client architecture** (Activities, Fragments, API client)
-- **8 DTOs** for data transfer
-- **Complete relationships** showing all dependencies
-- **Database schema** representation
-- Uses UML stereotypes (<<Entity>>, <<Service>>, <<Repository>>, etc.)
+### 1. **Essential Class Diagram** (`binome_matcher_report_essential.puml`) ⭐⭐⭐
+**Best for technical reports** - Shows only what's necessary:
+- 3 domain entities with key attributes
+- 3 main controllers with core methods
+- 3 essential services
+- Android client representation
+- JWT security
+- Database connection
+- Clean relationships
 
-## 🎯 Presentation Diagrams (Easy to Explain)
+### 2. **Core Architecture** (`binome_matcher_core_architecture.puml`) ⭐⭐
+**Best for architecture overview** - Component view:
+- Main system components
+- Technology stack visualization
+- Data flow representation
+- Helpful notes
 
-### 1. Simple Flow (`binome_matcher_simple_flow_diagram.puml`) ⭐
-**Best for explaining the concept** - Shows user journey:
-- How users interact with the system
-- Main flow: Register → Profile → Match → Connect
-- Minimal classes with clear relationships
-- Step-by-step note included
+### 3. **Essential Architecture** (`binome_matcher_essential_diagram.puml`) ⭐⭐
+**Alternative class view** - More detailed than above:
+- All main classes organized by packages
+- No methods shown for simplicity
+- Clear layer separation
 
-### 2. Presentation View (`binome_matcher_presentation_diagram.puml`) ⭐
-**Best for presentations** - Shows core concepts only:
-- 3 main entities (User, Profile, Message)
-- 3 core services (Auth, Match, Message)
-- Clear flow from App → Services → Database
-- Includes helpful note about matching
+## 🎯 Presentation Diagrams
 
-### 3. Vertical Layout (`binome_matcher_vertical_diagram.puml`) ⭐
-**Best for architecture overview** - Shows layers:
-- Top-to-bottom flow (App → API → Services → Data → DB)
-- Each layer's responsibilities
-- Clean vertical alignment
-- Perfect for slide presentations
+### 4. Simple Flow (`binome_matcher_simple_flow_diagram.puml`)
+Shows user journey through the system
+
+### 5. Presentation View (`binome_matcher_presentation_diagram.puml`)
+Core concepts for presentations
+
+### 6. Vertical Layout (`binome_matcher_vertical_diagram.puml`)
+Layer-by-layer architecture
 
 ## 📚 Other Diagrams
 
-### 4. Full Class Diagram (`binome_matcher_simple_diagram.puml`)
-Complete class diagram with all attributes and methods (less organized than report diagram)
+### 7. Full Class Diagram (`binome_matcher_simple_diagram.puml`)
+Complete detailed diagram (if you need all details)
 
-### 5. Clean Class Diagram (`binome_matcher_clean_class_diagram.puml`)
-Balanced version with essential details
+### 8. Clean Class Diagram (`binome_matcher_clean_class_diagram.puml`)
+Medium detail level
 
-### 6. Component Overview (`binome_matcher_minimal_diagram.puml`)
-High-level system components
+### 9. Component Overview (`binome_matcher_minimal_diagram.puml`)
+Minimal system view
 
 ## How to View
 
@@ -57,23 +55,19 @@ High-level system components
 2. Copy any `.puml` file content
 3. Paste and click "Submit"
 
-## 💡 Usage Recommendations
+## 💡 For Your Report
 
-### For Technical Reports
-Use the **Detailed Report Diagram** - it includes:
-- Complete class structure with attributes and methods
-- All system components organized by layers
-- Proper UML notation and stereotypes
-- Comprehensive relationships
-- Suitable for technical documentation
+Use the **Essential Class Diagram** - it includes:
+- Only necessary components
+- Key attributes and methods
+- Clean black & white design
+- Professional layout
+- Easy to explain and understand
 
-### For Presentations
-Start with **Simple Flow** → **Presentation View** → **Vertical Layout**
+## System Overview
 
-## What is Binome Matcher?
-
-A platform that matches users based on their skills and preferences:
+**Binome Matcher** - A skill-based matching platform:
 - **Backend**: Spring Boot REST API with JWT authentication
-- **Frontend**: Native Android application
-- **Database**: PostgreSQL with JPA/Hibernate
-- **Features**: User profiles, skill-based matching, real-time messaging, debug logging
+- **Frontend**: Native Android application  
+- **Database**: PostgreSQL
+- **Purpose**: Matches users based on skills and preferences for collaboration

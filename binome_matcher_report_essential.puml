@@ -1,0 +1,96 @@
+@startuml Binome Matcher - Essential Class Diagram
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontSize 12
+skinparam classAttributeIconSize 0
+hide empty methods
+hide empty fields
+
+title Binome Matcher - System Architecture
+
+' Entities
+class User {
+    username: String
+    email: String
+    password: String
+}
+
+class Profile {
+    formation: String
+    skills: List<String>
+}
+
+class Message {
+    content: String
+    timestamp: Date
+}
+
+' Controllers
+class AuthController {
+    register()
+    login()
+}
+
+class MatchController {
+    findMatches()
+}
+
+class MessageController {
+    sendMessage()
+    getConversations()
+}
+
+' Services
+class AuthenticationService {
+    authenticate()
+    createToken()
+}
+
+class MatchService {
+    calculateCompatibility()
+    findMatches()
+}
+
+class MessageService {
+    send()
+    getMessages()
+}
+
+' Client
+class AndroidApp {
+    LoginActivity
+    MainActivity
+}
+
+class ApiClient {
+    callAPI()
+}
+
+' Security
+class JwtTokenProvider {
+    generateToken()
+    validateToken()
+}
+
+' Database
+database PostgreSQL
+
+' Main relationships
+Profile --> User
+Message --> User
+
+AuthController --> AuthenticationService
+MatchController --> MatchService  
+MessageController --> MessageService
+
+AuthenticationService --> JwtTokenProvider
+
+AndroidApp --> ApiClient
+ApiClient ..> AuthController : HTTP
+
+AuthenticationService --> PostgreSQL
+MatchService --> PostgreSQL
+MessageService --> PostgreSQL
+
+@enduml

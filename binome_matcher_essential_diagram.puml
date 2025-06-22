@@ -1,0 +1,94 @@
+@startuml Binome Matcher - Essential Architecture
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontSize 12
+skinparam packageStyle rectangle
+
+title Binome Matcher System Architecture
+
+' Core Entities
+package "Domain" {
+    class User {
+        username
+        email
+        password
+    }
+    
+    class Profile {
+        formation
+        skills[]
+        preferences
+    }
+    
+    class Message {
+        content
+        timestamp
+    }
+}
+
+' API Layer
+package "REST API" {
+    class AuthController
+    class ProfileController
+    class MessageController
+    class MatchController
+}
+
+' Service Layer
+package "Services" {
+    class AuthenticationService
+    class ProfileService
+    class MessageService
+    class MatchService
+}
+
+' Data Layer
+package "Repositories" {
+    interface UserRepository
+    interface ProfileRepository
+    interface MessageRepository
+}
+
+' Security
+package "Security" {
+    class JwtTokenProvider
+    class SecurityConfig
+}
+
+' Android App
+package "Android Client" {
+    class LoginActivity
+    class MainActivity
+    class ApiClient
+    interface BinomeApiService
+}
+
+' Database
+database "PostgreSQL"
+
+' Essential Relationships
+Profile --> User
+Message --> User
+
+AuthController --> AuthenticationService
+ProfileController --> ProfileService
+MessageController --> MessageService
+MatchController --> MatchService
+
+AuthenticationService --> UserRepository
+ProfileService --> ProfileRepository
+MessageService --> MessageRepository
+MatchService --> ProfileRepository
+
+AuthenticationService --> JwtTokenProvider
+
+UserRepository --> PostgreSQL
+ProfileRepository --> PostgreSQL
+MessageRepository --> PostgreSQL
+
+LoginActivity --> ApiClient
+ApiClient --> BinomeApiService
+BinomeApiService ..> AuthController : HTTP
+
+@enduml

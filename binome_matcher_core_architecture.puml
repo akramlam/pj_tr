@@ -1,0 +1,52 @@
+@startuml Binome Matcher - Core Architecture
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontSize 14
+skinparam packageStyle rectangle
+skinparam linetype ortho
+
+title Binome Matcher Architecture
+
+' Main Components
+rectangle "Android App" as APP {
+    component "Login"
+    component "Profile"  
+    component "Matches"
+    component "Messages"
+}
+
+rectangle "Spring Boot API" as API {
+    component "Controllers" as CTRL
+    component "Services" as SVC
+    component "Security (JWT)" as SEC
+}
+
+rectangle "Data Layer" as DATA {
+    component "Repositories" as REPO
+    database "PostgreSQL" as DB
+}
+
+' Core Entities
+rectangle "Domain Model" as DOMAIN {
+    entity "User"
+    entity "Profile"
+    entity "Message"
+}
+
+' Relationships
+APP --> API : REST/HTTP
+CTRL --> SVC
+SVC --> SEC
+SVC --> REPO
+REPO --> DB
+REPO ..> DOMAIN : manages
+
+' Notes
+note right of APP : Native Android\nMaterial Design UI
+
+note right of API : RESTful endpoints\nJWT authentication\nBusiness logic
+
+note right of DB : Persistent storage\nfor users, profiles,\nand messages
+
+@enduml
