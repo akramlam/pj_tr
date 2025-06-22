@@ -1,0 +1,38 @@
+@startuml Binome Matcher - Ultra Simple
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontSize 14
+skinparam ranksep 40
+skinparam nodesep 30
+hide circle
+hide methods
+hide fields
+
+' Entities
+class User
+class Profile  
+class Message
+
+' API Layer
+class Controller
+class Service
+class Repository
+
+' Client
+class AndroidApp
+
+' Database
+database "DB" as DB
+
+' Simple flow
+AndroidApp --> Controller
+Controller --> Service
+Service --> Repository
+Repository --> DB
+
+' Domain relationships
+Profile --> User
+Message --> User
+
+@enduml

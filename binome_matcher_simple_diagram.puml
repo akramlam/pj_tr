@@ -1,101 +1,67 @@
-@startuml Binome Matcher - Simplified Architecture
+@startuml Binome Matcher - Simple Class Diagram
 
 skinparam monochrome true
 skinparam shadowing false
 skinparam packageStyle rectangle
 skinparam defaultFontSize 12
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
 
-' Core Domain
-package "Domain" {
-    class User {
-        username
-        email
-        password
-    }
-    
-    class Profile {
-        formation
-        skills
-        preferences
-    }
-    
-    class Message {
-        content
-        timestamp
-    }
-}
+' Core entities
+class User
+class Profile
+class Message
 
-' Backend
-package "Backend API" {
-    class AuthController
-    class ProfileController
-    class MessageController
-    class MatchController
-    
-    class AuthService
-    class ProfileService
-    class MessageService
-    class MatchService
-    
-    class UserRepository
-    class ProfileRepository
-    class MessageRepository
-}
+' Controllers
+class AuthController
+class ProfileController
+class MessageController
+class MatchController
+
+' Services
+class AuthService
+class ProfileService  
+class MessageService
+class MatchService
+
+' Repositories
+class UserRepository
+class ProfileRepository
+class MessageRepository
 
 ' Security
-package "Security" {
-    class JwtTokenProvider
-    class SecurityConfig
-}
+class JwtTokenProvider
 
-' Android Client
-package "Android App" {
-    class LoginActivity
-    class MainActivity
-    class ApiClient
-    
-    package "Fragments" {
-        class ProfileFragment
-        class MessagesFragment
-        class MatchesFragment
-    }
-}
+' Android
+class LoginActivity
+class MainActivity
+class ApiClient
 
 ' Database
 database "PostgreSQL" as DB
 
-' Core relationships
+' Relationships
 Profile --> User
-Message --> User : sender
-Message --> User : recipient
+Message --> User
 
-' Service layer
 AuthController --> AuthService
 ProfileController --> ProfileService
 MessageController --> MessageService
 MatchController --> MatchService
 
-' Repository layer
 AuthService --> UserRepository
 ProfileService --> ProfileRepository
 MessageService --> MessageRepository
-MatchService --> UserRepository
 
-' Security
-AuthService --> JwtTokenProvider
-
-' Data persistence
 UserRepository --> DB
 ProfileRepository --> DB
 MessageRepository --> DB
 
-' Android
+AuthService --> JwtTokenProvider
+
 LoginActivity --> ApiClient
-MainActivity --> ProfileFragment
-MainActivity --> MessagesFragment
-MainActivity --> MatchesFragment
-ApiClient ..> AuthController : HTTP
-ApiClient ..> ProfileController : HTTP
-ApiClient ..> MessageController : HTTP
+MainActivity --> ApiClient
+ApiClient ..> AuthController
 
 @enduml

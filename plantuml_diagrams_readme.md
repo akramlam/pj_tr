@@ -2,35 +2,33 @@
 
 Simple black and white PlantUML diagrams for the Binome Matcher application.
 
-## Diagrams
+## Diagrams (from detailed to minimal)
 
-### 1. Simplified Architecture (`binome_matcher_simple_diagram.puml`)
-A clean class diagram showing:
-- Core domain entities (User, Profile, Message)
-- Backend API components (Controllers, Services, Repositories)
-- Android app structure
-- Database connections
+### 1. Simple Class Diagram (`binome_matcher_simple_diagram.puml`)
+Shows individual classes without attributes:
+- All main classes (User, Profile, Message)
+- Controllers, Services, Repositories
+- Basic relationships
 
-### 2. Minimal Overview (`binome_matcher_minimal_diagram.puml`)
-An ultra-minimal architecture view showing:
-- High-level components only
-- Basic data flow
-- System boundaries
+### 2. Ultra Simple (`binome_matcher_ultra_simple_diagram.puml`)
+Abstract class diagram showing:
+- Generic Controller → Service → Repository pattern
+- Core entities only
+- Data flow
+
+### 3. Minimal Overview (`binome_matcher_minimal_diagram.puml`)
+Component-level architecture:
+- 4 main components
+- High-level interactions
 
 ## How to View
 
-### Online
 1. Go to http://www.plantuml.com/plantuml/uml/
-2. Copy the `.puml` file content
+2. Copy any `.puml` file content
 3. Paste and click "Submit"
 
-### VS Code
-1. Install PlantUML extension
-2. Open `.puml` file
-3. Press `Alt+D` to preview
+## Architecture
 
-## Architecture Summary
+**Android App** → **Spring Boot API** → **PostgreSQL**
 
-**Android App** → **Spring Boot API** → **PostgreSQL Database**
-
-The system uses JWT for security and follows a standard 3-tier architecture.
+Simple 3-tier architecture with JWT security.
