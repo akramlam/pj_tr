@@ -1,0 +1,96 @@
+@startuml Binome Matcher High-Level Architecture
+
+!define COMPONENT(x) component x << Component >>
+!define DATABASE(x) database x << Database >>
+!define MOBILE(x) component x << Mobile App >>
+
+skinparam componentStyle rectangle
+skinparam packageStyle rectangle
+
+' Android Client
+package "Android Mobile App" #DDA0DD {
+    MOBILE([Login Screen])
+    MOBILE([Main Activity])
+    MOBILE([Profile Management])
+    MOBILE([Messaging])
+    MOBILE([Match Discovery])
+    COMPONENT([API Client])
+}
+
+' Backend Services
+package "Spring Boot Backend" #90EE90 {
+    package "API Controllers" #AAAAFF {
+        COMPONENT([Auth Controller])
+        COMPONENT([Profile Controller])
+        COMPONENT([Message Controller])
+        COMPONENT([Match Controller])
+    }
+    
+    package "Business Services" #AAFFAA {
+        COMPONENT([Authentication Service])
+        COMPONENT([Profile Service])
+        COMPONENT([Message Service])
+        COMPONENT([Match Service])
+    }
+    
+    package "Security Layer" #FFD700 {
+        COMPONENT([JWT Provider])
+        COMPONENT([Security Config])
+        COMPONENT([Auth Filters])
+    }
+}
+
+' Data Layer
+package "Data Persistence" #FFFF99 {
+    COMPONENT([JPA Repositories])
+    DATABASE([PostgreSQL DB])
+}
+
+' Core Domain
+package "Domain Models" #FFAAAA {
+    COMPONENT([User])
+    COMPONENT([Profile])
+    COMPONENT([Message])
+    COMPONENT([Project])
+}
+
+' Relationships
+[API Client] --> [Auth Controller] : REST/HTTP
+[API Client] --> [Profile Controller] : REST/HTTP
+[API Client] --> [Message Controller] : REST/HTTP
+[API Client] --> [Match Controller] : REST/HTTP
+
+[Auth Controller] --> [Authentication Service]
+[Profile Controller] --> [Profile Service]
+[Message Controller] --> [Message Service]
+[Match Controller] --> [Match Service]
+
+[Authentication Service] --> [JWT Provider]
+[Auth Filters] --> [JWT Provider]
+
+[Authentication Service] --> [JPA Repositories]
+[Profile Service] --> [JPA Repositories]
+[Message Service] --> [JPA Repositories]
+[Match Service] --> [JPA Repositories]
+
+[JPA Repositories] --> [PostgreSQL DB]
+
+[JPA Repositories] ..> [User] : persists
+[JPA Repositories] ..> [Profile] : persists
+[JPA Repositories] ..> [Message] : persists
+[JPA Repositories] ..> [Project] : persists
+
+note right of [Android Mobile App]
+  Native Android application
+  with Material Design UI
+end note
+
+note bottom of [PostgreSQL DB]
+  Relational database storing:
+  - User accounts
+  - Profiles & skills
+  - Messages
+  - Debug logs
+end note
+
+@enduml
