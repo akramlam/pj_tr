@@ -1,0 +1,24 @@
+@startuml Binome Matcher - Minimal Overview
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam componentStyle rectangle
+skinparam defaultFontSize 14
+
+component "Android App" as Client
+component "Spring Boot API" as API
+component "JWT Security" as Security
+database "PostgreSQL" as DB
+
+Client --> API : REST API
+API --> Security : authenticate
+API --> DB : persist
+Security --> DB : validate users
+
+note top of Client : Mobile UI\n(Activities & Fragments)
+
+note top of API : Business Logic\n(Services & Controllers)
+
+note bottom of DB : Users, Profiles,\nMessages, Matches
+
+@enduml

@@ -1,59 +1,36 @@
 # Binome Matcher PlantUML Diagrams
 
-This directory contains PlantUML diagrams for the Binome Matcher application architecture.
+Simple black and white PlantUML diagrams for the Binome Matcher application.
 
 ## Diagrams
 
-### 1. Class Diagram (`binome_matcher_class_diagram.puml`)
-A detailed class diagram showing:
-- Core domain entities and their attributes
-- API controllers, services, and repositories
-- Security components (JWT authentication)
-- Android client main components
-- Relationships between all components
+### 1. Simplified Architecture (`binome_matcher_simple_diagram.puml`)
+A clean class diagram showing:
+- Core domain entities (User, Profile, Message)
+- Backend API components (Controllers, Services, Repositories)
+- Android app structure
+- Database connections
 
-### 2. Architecture Diagram (`binome_matcher_architecture_diagram.puml`)
-A high-level architecture diagram showing:
-- Android Mobile App layer
-- Spring Boot Backend layer
-- Data Persistence layer
-- Communication flow between components
+### 2. Minimal Overview (`binome_matcher_minimal_diagram.puml`)
+An ultra-minimal architecture view showing:
+- High-level components only
+- Basic data flow
+- System boundaries
 
-## How to View the Diagrams
+## How to View
 
-### Option 1: PlantUML Online Server
-1. Visit http://www.plantuml.com/plantuml/uml/
-2. Copy the content of the `.puml` file
-3. Paste it in the text area
-4. Click "Submit" to generate the diagram
+### Online
+1. Go to http://www.plantuml.com/plantuml/uml/
+2. Copy the `.puml` file content
+3. Paste and click "Submit"
 
-### Option 2: VS Code Extension
-1. Install the "PlantUML" extension in VS Code
-2. Open the `.puml` file
-3. Press `Alt+D` to preview the diagram
+### VS Code
+1. Install PlantUML extension
+2. Open `.puml` file
+3. Press `Alt+D` to preview
 
-### Option 3: Command Line
-```bash
-# Install PlantUML
-java -jar plantuml.jar binome_matcher_class_diagram.puml
-java -jar plantuml.jar binome_matcher_architecture_diagram.puml
-```
+## Architecture Summary
 
-## Color Legend
+**Android App** → **Spring Boot API** → **PostgreSQL Database**
 
-- **Red** - Domain Entities (User, Profile, Message)
-- **Green** - Business Services
-- **Blue** - REST Controllers
-- **Yellow** - Repositories (Data Access)
-- **Gold** - Security Components
-- **Purple** - Android Components
-
-## Architecture Overview
-
-The Binome Matcher application follows a typical 3-tier architecture:
-
-1. **Presentation Layer** - Android mobile app with activities and fragments
-2. **Business Layer** - Spring Boot services implementing business logic
-3. **Data Layer** - JPA repositories with PostgreSQL database
-
-The application uses JWT tokens for authentication and follows RESTful API design principles.
+The system uses JWT for security and follows a standard 3-tier architecture.
