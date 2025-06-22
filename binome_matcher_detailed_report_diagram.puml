@@ -1,0 +1,448 @@
+@startuml Binome Matcher - Detailed Class Diagram
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontSize 11
+skinparam classFontStyle bold
+skinparam packageStyle rectangle
+skinparam linetype ortho
+
+title Binome Matcher - Complete System Architecture
+
+' ========================================
+' DOMAIN ENTITIES
+' ========================================
+package "Core Domain Entities" <<Database>> {
+    class User <<Entity>> {
+        - id: Long
+        - username: String
+        - email: String  
+        - password: String
+        - roles: Set<String>
+        + getId(): Long
+        + getUsername(): String
+        + getEmail(): String
+        + getRoles(): Set<String>
+    }
+    
+    class Profile <<Entity>> {
+        - id: Long
+        - user: User
+        - formation: String
+        - skills: Set<String>
+        - preferences: String
+        + getUser(): User
+        + getFormation(): String
+        + getSkills(): Set<String>
+        + getPreferences(): String
+    }
+    
+    class Message <<Entity>> {
+        - id: Long
+        - sender: User
+        - recipient: User
+        - content: String
+        - timestamp: Instant
+        + getSender(): User
+        + getRecipient(): User
+        + getContent(): String
+        + getTimestamp(): Instant
+    }
+    
+    class DebugLog <<Entity>> {
+        - id: Long
+        - userId: String
+        - action: String
+        - details: String
+        - screen: String
+        - errorMessage: String
+        - timestamp: LocalDateTime
+        - deviceInfo: String
+        - appVersion: String
+        + getUserId(): String
+        + getAction(): String
+        + getTimestamp(): LocalDateTime
+    }
+}
+
+' ========================================
+' REST CONTROLLERS
+' ========================================
+package "REST API Controllers" <<Framework>> {
+    class AuthController <<RestController>> {
+        - authService: AuthenticationService
+        + register(RegisterRequest): ResponseEntity<AuthResponse>
+        + login(LoginRequest): ResponseEntity<AuthResponse>
+    }
+    
+    class ProfileController <<RestController>> {
+        - profileService: ProfileService
+        + createProfile(ProfileRequest): ResponseEntity<Profile>
+        + getProfile(Principal): ResponseEntity<Profile>
+        + updateProfile(ProfileRequest, Principal): ResponseEntity<Profile>
+        + getCurrentProfile(Principal): ResponseEntity<Profile>
+    }
+    
+    class MessageController <<RestController>> {
+        - messageService: MessageService
+        + getConversations(Principal): ResponseEntity<List<ConversationDto>>
+        + getConversationMessages(otherUsername, Principal): ResponseEntity<List<MessageDto>>
+        + sendMessage(SendMessageRequest, Principal): ResponseEntity<MessageDto>
+        + markAsRead(otherUsername, Principal): ResponseEntity<Void>
+    }
+    
+    class MatchController <<RestController>> {
+        - matchService: MatchService
+        + getPotentialMatches(Principal): ResponseEntity<List<PotentialMatchDto>>
+        + sendMatchAction(MatchRequestDto, Principal): ResponseEntity<MatchResponseDto>
+        + sendMatchRequest(MatchRequestDto, Principal): ResponseEntity<MatchResponseDto>
+    }
+    
+    class DebugLogController <<RestController>> {
+        - debugLogService: DebugLogService
+        + logAction(DebugLogRequest): ResponseEntity<DebugLog>
+        + getUserLogs(userId): ResponseEntity<List<DebugLog>>
+        + getRecentLogs(): ResponseEntity<List<DebugLog>>
+    }
+    
+    class GlobalExceptionHandler <<ControllerAdvice>> {
+        + handleValidationException(MethodArgumentNotValidException): ResponseEntity<ErrorResponse>
+        + handleConstraintViolationException(ConstraintViolationException): ResponseEntity<ErrorResponse>
+        + handleRuntimeException(RuntimeException): ResponseEntity<ErrorResponse>
+    }
+}
+
+' ========================================
+' BUSINESS SERVICES
+' ========================================
+package "Business Services" <<Service>> {
+    class AuthenticationService <<Service>> {
+        - userRepository: UserRepository
+        - passwordEncoder: PasswordEncoder
+        - jwtTokenProvider: JwtTokenProvider
+        + register(username: String, email: String, password: String): String
+        + login(username: String, password: String): String
+        - validateUniqueUser(username: String, email: String): void
+    }
+    
+    class ProfileService <<Service>> {
+        - profileRepository: ProfileRepository
+        - userRepository: UserRepository
+        + createProfile(username: String, profileDto: ProfileDto): Profile
+        + getProfile(username: String): Profile
+        + updateProfile(username: String, profileDto: ProfileDto): Profile
+        + getUserWithProfile(username: String): Profile
+    }
+    
+    class MessageService <<Service>> {
+        - messageRepository: MessageRepository
+        - userRepository: UserRepository
+        + send(senderUsername: String, recipientUsername: String, content: String): MessageDto
+        + getConversation(user1: String, user2: String): List<MessageDto>
+        + getUserMessages(username: String): List<MessageDto>
+        - createMessageDto(message: Message): MessageDto
+    }
+    
+    class MatchService <<Service>> {
+        - userRepository: UserRepository
+        - profileRepository: ProfileRepository
+        + findMatches(username: String, limit: int): List<MatchDto>
+        + calculateCompatibility(profile1: Profile, profile2: Profile): double
+        + getRecommendations(username: String): List<MatchDto>
+        - calculateSkillOverlap(skills1: Set<String>, skills2: Set<String>): double
+    }
+    
+    class DebugLogService <<Service>> {
+        - debugLogRepository: DebugLogRepository
+        + logAction(log: DebugLog): DebugLog
+        + getUserLogs(userId: String): List<DebugLog>
+        + getRecentLogs(limit: int): List<DebugLog>
+        + logError(userId: String, error: String, screen: String): DebugLog
+    }
+    
+    class CustomUserDetailsService <<Service>> {
+        - userRepository: UserRepository
+        + loadUserByUsername(username: String): UserDetails
+    }
+}
+
+' ========================================
+' DATA REPOSITORIES
+' ========================================
+package "Data Access Layer" <<Repository>> {
+    interface UserRepository <<Repository>> {
+        + findByUsername(username: String): Optional<User>
+        + findByEmail(email: String): Optional<User>
+        + existsByUsername(username: String): boolean
+        + existsByEmail(email: String): boolean
+        + save(user: User): User
+    }
+    
+    interface ProfileRepository <<Repository>> {
+        + findByUserId(userId: Long): Optional<Profile>
+        + findByUserUsername(username: String): Optional<Profile>
+        + save(profile: Profile): Profile
+        + existsByUserId(userId: Long): boolean
+    }
+    
+    interface MessageRepository <<Repository>> {
+        + findBySenderIdAndRecipientId(senderId: Long, recipientId: Long): List<Message>
+        + findByUserId(userId: Long): List<Message>
+        + save(message: Message): Message
+        + findConversations(userId: Long): List<Message>
+    }
+    
+    interface DebugLogRepository <<Repository>> {
+        + findByUserId(userId: String): List<DebugLog>
+        + findTopNByOrderByTimestampDesc(limit: int): List<DebugLog>
+        + save(log: DebugLog): DebugLog
+    }
+}
+
+' ========================================
+' SECURITY COMPONENTS
+' ========================================
+package "Security Layer" <<Security>> {
+    class SecurityConfig <<Configuration>> {
+        - jwtTokenProvider: JwtTokenProvider
+        - userDetailsService: UserDetailsService
+        + filterChain(HttpSecurity): SecurityFilterChain
+        + jwtAuthenticationFilter(): JwtAuthenticationFilter
+        + authenticationManager(AuthenticationConfiguration): AuthenticationManager
+        + passwordEncoder(): PasswordEncoder
+    }
+    
+    class JwtTokenProvider <<Component>> {
+        - jwtSecret: String
+        - jwtExpirationMs: int
+        + generateToken(username: String): String
+        + getUsernameFromToken(token: String): String
+        + validateToken(authToken: String): boolean
+    }
+    
+    class JwtAuthenticationFilter <<Filter>> {
+        - jwtTokenProvider: JwtTokenProvider
+        - userDetailsService: UserDetailsService
+        + doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain): void
+        - getTokenFromRequest(request: HttpServletRequest): String
+    }
+}
+
+' ========================================
+' ANDROID CLIENT COMPONENTS
+' ========================================
+package "Android Client" <<Mobile>> {
+    class LoginActivity <<Activity>> {
+        - apiClient: ApiClient
+        - sharedPreferences: SharedPreferences
+        + onCreate(savedInstanceState: Bundle): void
+        + handleLogin(username: String, password: String): void
+        + handleRegister(username: String, email: String, password: String): void
+        - saveAuthToken(token: String): void
+        - navigateToMain(): void
+    }
+    
+    class MainActivity <<Activity>> {
+        - navigationView: NavigationView
+        - drawerLayout: DrawerLayout
+        - navController: NavController
+        + onCreate(savedInstanceState: Bundle): void
+        + setupNavigation(): void
+        + onNavigationItemSelected(MenuItem): boolean
+    }
+    
+    package "UI Fragments" {
+        class ProfileFragment <<Fragment>> {
+            - profileViewModel: ProfileViewModel
+            + onCreateView(inflater: LayoutInflater, container: ViewGroup): View
+            + updateProfile(): void
+            + loadUserProfile(): void
+        }
+        
+        class MessagesFragment <<Fragment>> {
+            - adapter: ConversationsAdapter
+            - apiClient: ApiClient
+            + onCreateView(inflater: LayoutInflater, container: ViewGroup): View
+            + loadConversations(): void
+            + navigateToConversation(username: String): void
+        }
+        
+        class MatchesFragment <<Fragment>> {
+            - viewPager: ViewPager2
+            - tabLayout: TabLayout
+            + onCreateView(inflater: LayoutInflater, container: ViewGroup): View
+            + setupTabs(): void
+        }
+        
+        class ConversationDetailFragment <<Fragment>> {
+            - messagesAdapter: MessagesAdapter
+            - otherUsername: String
+            + onCreateView(inflater: LayoutInflater, container: ViewGroup): View
+            + loadMessages(): void
+            + sendMessage(content: String): void
+        }
+    }
+    
+    class ApiClient <<Singleton>> {
+        - retrofit: Retrofit
+        - {static} BASE_URL: String = "http://10.0.2.2:8080/"
+        - authInterceptor: AuthInterceptor
+        + {static} create(context: Context): BinomeApiService
+        + {static} getInstance(): ApiClient
+    }
+    
+    interface BinomeApiService <<Interface>> {
+        + register(RegisterRequest): Call<AuthResponse>
+        + login(LoginRequest): Call<AuthResponse>
+        + createProfile(CreateProfileRequest): Call<Profile>
+        + updateProfile(CreateProfileRequest): Call<Profile>
+        + getCurrentProfile(): Call<Profile>
+        + getPotentialMatches(): Call<List<PotentialMatch>>
+        + sendMatchAction(MatchRequest): Call<MatchResponse>
+        + getConversations(): Call<List<Conversation>>
+        + getConversationMessages(otherUsername: String): Call<List<Message>>
+        + sendMessage(SendMessageRequest): Call<Message>
+    }
+    
+    package "Models" {
+        class Project <<Model>> {
+            - id: String
+            - title: String
+            - description: String
+            + Project()
+            + Project(title: String, description: String)
+        }
+    }
+}
+
+' ========================================
+' DTOs AND API MODELS
+' ========================================
+package "Data Transfer Objects" <<DTO>> {
+    class AuthResponse {
+        + token: String
+    }
+    
+    class RegisterRequest {
+        + username: String
+        + email: String
+        + password: String
+    }
+    
+    class LoginRequest {
+        + username: String
+        + password: String
+    }
+    
+    class ProfileDto {
+        + formation: String
+        + skills: Set<String>
+        + preferences: String
+    }
+    
+    class MessageDto {
+        + id: Long
+        + sender: String
+        + recipient: String
+        + content: String
+        + timestamp: String
+    }
+    
+    class MatchDto {
+        + userId: Long
+        + username: String
+        + formation: String
+        + skills: Set<String>
+        + score: double
+    }
+    
+    class ConversationDto {
+        + username: String
+        + displayName: String
+        + lastMessage: String
+        + timestamp: String
+        + hasUnreadMessages: boolean
+        + unreadCount: int
+    }
+    
+    class PotentialMatchDto {
+        + userId: Long
+        + username: String
+        + formation: String
+        + commonSkills: Set<String>
+        + compatibilityScore: int
+    }
+}
+
+' ========================================
+' DATABASE
+' ========================================
+database "PostgreSQL Database" as DB {
+    folder "Tables" {
+        note "- users\n- profiles\n- messages\n- debug_logs\n- user_roles\n- profile_skills" as tables
+    }
+}
+
+' ========================================
+' RELATIONSHIPS
+' ========================================
+
+' Domain relationships
+Profile "1" --> "1" User : belongs to
+Message "*" --> "1" User : sender
+Message "*" --> "1" User : recipient
+
+' Service-Repository relationships
+AuthenticationService --> UserRepository : uses
+ProfileService --> ProfileRepository : uses
+ProfileService --> UserRepository : uses
+MessageService --> MessageRepository : uses
+MessageService --> UserRepository : uses
+MatchService --> UserRepository : uses
+MatchService --> ProfileRepository : uses
+DebugLogService --> DebugLogRepository : uses
+CustomUserDetailsService --> UserRepository : uses
+
+' Controller-Service relationships
+AuthController --> AuthenticationService : uses
+ProfileController --> ProfileService : uses
+MessageController --> MessageService : uses
+MatchController --> MatchService : uses
+DebugLogController --> DebugLogService : uses
+
+' Security relationships
+AuthenticationService --> JwtTokenProvider : uses
+JwtAuthenticationFilter --> JwtTokenProvider : uses
+JwtAuthenticationFilter --> CustomUserDetailsService : uses
+SecurityConfig --> JwtTokenProvider : configures
+SecurityConfig --> JwtAuthenticationFilter : creates
+
+' Repository-Database relationships
+UserRepository ..> DB : queries
+ProfileRepository ..> DB : queries
+MessageRepository ..> DB : queries
+DebugLogRepository ..> DB : queries
+
+' Android relationships
+LoginActivity --> ApiClient : uses
+MainActivity --> ProfileFragment : contains
+MainActivity --> MessagesFragment : contains
+MainActivity --> MatchesFragment : contains
+MessagesFragment --> ConversationDetailFragment : navigates to
+ApiClient --> BinomeApiService : creates
+BinomeApiService ..> AuthController : "HTTP/REST"
+BinomeApiService ..> ProfileController : "HTTP/REST"
+BinomeApiService ..> MessageController : "HTTP/REST"
+BinomeApiService ..> MatchController : "HTTP/REST"
+
+' DTO usage relationships
+AuthController ..> AuthResponse : returns
+AuthController ..> RegisterRequest : accepts
+AuthController ..> LoginRequest : accepts
+ProfileController ..> ProfileDto : uses
+MessageController ..> MessageDto : returns
+MessageController ..> ConversationDto : returns
+MatchController ..> MatchDto : uses
+MatchController ..> PotentialMatchDto : returns
+
+@enduml
