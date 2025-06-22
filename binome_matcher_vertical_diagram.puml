@@ -1,0 +1,59 @@
+@startuml Binome Matcher - Vertical Layout
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontSize 14
+skinparam padding 5
+skinparam classFontStyle bold
+
+!define VERTICAL_SPACING skinparam ranksep 60
+
+title Binome Matcher Architecture
+
+' Layer 1: Client
+class "Android App" as App {
+    Login Screen
+    Profile Management
+    Match Discovery
+    Messaging
+}
+
+' Layer 2: API
+class "API Gateway" as API {
+    /auth/login
+    /auth/register
+    /profile/update
+    /matches/find
+    /messages/send
+}
+
+' Layer 3: Business Logic
+class "Core Services" as Services {
+    Authentication
+    Profile Management
+    Matching Algorithm
+    Messaging System
+}
+
+' Layer 4: Data
+class "Data Layer" as Data {
+    User Repository
+    Profile Repository
+    Message Repository
+}
+
+' Layer 5: Database
+database "PostgreSQL" as DB {
+    users
+    profiles
+    messages
+    matches
+}
+
+' Vertical flow
+App --|> API : REST
+API --|> Services : processes
+Services --|> Data : queries
+Data --|> DB : stores
+
+@enduml

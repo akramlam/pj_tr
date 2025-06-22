@@ -2,39 +2,60 @@
 
 Clean black and white PlantUML diagrams for the Binome Matcher application.
 
-## Class Diagrams
+## 🎯 Presentation Diagrams (Easy to Explain)
 
-### 1. Full Class Diagram (`binome_matcher_simple_diagram.puml`)
-Complete class diagram with:
-- All attributes and key methods
-- Organized by packages (Domain, Controllers, Services, Repositories)
-- Full relationships and dependencies
-- Best for detailed documentation
+### 1. Simple Flow (`binome_matcher_simple_flow_diagram.puml`) ⭐
+**Best for explaining the concept** - Shows user journey:
+- How users interact with the system
+- Main flow: Register → Profile → Match → Connect
+- Minimal classes with clear relationships
+- Step-by-step note included
 
-### 2. Clean Class Diagram (`binome_matcher_clean_class_diagram.puml`) 
-Balanced class diagram with:
-- Essential attributes only
-- Key methods (simplified parameters)
-- Clean layout without packages
-- Best for presentations
+### 2. Presentation View (`binome_matcher_presentation_diagram.puml`) ⭐
+**Best for presentations** - Shows core concepts only:
+- 3 main entities (User, Profile, Message)
+- 3 core services (Auth, Match, Message)
+- Clear flow from App → Services → Database
+- Includes helpful note about matching
 
-### 3. Ultra Simple (`binome_matcher_ultra_simple_diagram.puml`)
-Abstract pattern view:
-- Generic classes showing architecture patterns
-- No attributes or methods
-- Best for high-level understanding
+### 3. Vertical Layout (`binome_matcher_vertical_diagram.puml`) ⭐
+**Best for architecture overview** - Shows layers:
+- Top-to-bottom flow (App → API → Services → Data → DB)
+- Each layer's responsibilities
+- Clean vertical alignment
+- Perfect for slide presentations
 
-### 4. Component Overview (`binome_matcher_minimal_diagram.puml`)
-System architecture:
-- Component-level view (not classes)
-- Shows main system boundaries
-- Best for architecture overview
+## 📚 Detailed Diagrams (For Documentation)
+
+### 4. Full Class Diagram (`binome_matcher_simple_diagram.puml`)
+Complete class diagram with all attributes and methods
+
+### 5. Clean Class Diagram (`binome_matcher_clean_class_diagram.puml`)
+Balanced version with essential details
+
+### 6. Component Overview (`binome_matcher_minimal_diagram.puml`)
+High-level system components
 
 ## How to View
 
 1. Go to http://www.plantuml.com/plantuml/uml/
 2. Copy any `.puml` file content
 3. Paste and click "Submit"
+
+## 💡 Presentation Tips
+
+- **Start with**: Simple Flow diagram to explain what the app does
+- **Then show**: Presentation View to explain the main components
+- **End with**: Vertical Layout to show the technical architecture
+- All diagrams are black & white for easy printing/projection
+
+## What is Binome Matcher?
+
+A platform that matches users based on their skills and preferences:
+- Users create profiles with their skills
+- The system finds compatible matches
+- Users can message their matches
+- Built with Android app + Spring Boot API + PostgreSQL
 
 ## Key Classes
 

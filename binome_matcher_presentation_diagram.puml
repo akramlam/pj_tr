@@ -1,0 +1,71 @@
+@startuml Binome Matcher - Presentation View
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontSize 14
+skinparam classFontStyle bold
+skinparam padding 5
+skinparam ranksep 80
+skinparam nodesep 50
+
+title Binome Matcher - Core Architecture
+
+' Core Entities
+class User {
+    username: String
+    email: String
+    password: String
+}
+
+class Profile {
+    skills: List<String>
+    preferences: String
+}
+
+class Message {
+    content: String
+    timestamp: Date
+}
+
+' Main Services
+class AuthService {
+    login(username, password)
+    register(username, email, password)
+}
+
+class MatchService {
+    findMatches(user)
+    calculateCompatibility(user1, user2)
+}
+
+class MessageService {
+    sendMessage(from, to, content)
+    getConversation(user1, user2)
+}
+
+' Client & Database
+class "Android App" as App {
+    LoginScreen
+    ProfileScreen
+    MatchesScreen
+    MessagesScreen
+}
+
+database "Database" as DB
+
+' Simple relationships
+User "1" -- "1" Profile : has
+User "1" -- "*" Message : sends
+User "1" -- "*" Message : receives
+
+App --> AuthService : authenticates
+App --> MatchService : finds matches
+App --> MessageService : sends messages
+
+AuthService --> DB
+MatchService --> DB
+MessageService --> DB
+
+note bottom of MatchService : Matches users based on\nskills and preferences
+
+@enduml

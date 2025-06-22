@@ -1,0 +1,52 @@
+@startuml Binome Matcher - Simple Flow
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontSize 16
+skinparam classFontStyle bold
+skinparam padding 8
+skinparam ranksep 100
+skinparam nodesep 60
+skinparam linetype polyline
+
+title How Binome Matcher Works
+
+' Simplified entities
+class User {
+    username
+    email
+}
+
+class Profile {
+    skills[]
+    interests[]
+}
+
+class Match {
+    user1
+    user2
+    score
+}
+
+' Core functionality
+class BinomeMatcher {
+    register(user)
+    createProfile(skills)
+    findMatches()
+    sendMessage()
+}
+
+' Visual flow
+User --> Profile : creates
+Profile --> BinomeMatcher : uses
+BinomeMatcher --> Match : generates
+Match --> User : connects
+
+note right of BinomeMatcher
+  1. Users register
+  2. Create profiles with skills
+  3. System finds matches
+  4. Users can message
+end note
+
+@enduml
