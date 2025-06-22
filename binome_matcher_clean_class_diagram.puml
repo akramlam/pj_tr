@@ -1,0 +1,135 @@
+@startuml Binome Matcher - Clean Class Diagram
+
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontSize 12
+skinparam linetype ortho
+
+' Domain Model
+class User {
+    - id: Long
+    - username: String
+    - email: String
+    - password: String
+}
+
+class Profile {
+    - id: Long
+    - formation: String
+    - skills: Set<String>
+    - preferences: String
+}
+
+class Message {
+    - id: Long
+    - content: String
+    - timestamp: Instant
+}
+
+' API Layer
+class AuthController {
+    + register(): AuthResponse
+    + login(): AuthResponse
+}
+
+class ProfileController {
+    + createProfile(): Profile
+    + getProfile(): Profile
+    + updateProfile(): Profile
+}
+
+class MessageController {
+    + sendMessage(): Message
+    + getConversation(): List<Message>
+}
+
+class MatchController {
+    + findMatches(): List<User>
+    + getRecommendations(): List<User>
+}
+
+' Service Layer
+class AuthenticationService {
+    + register(): String
+    + login(): String
+}
+
+class ProfileService {
+    + createProfile(): Profile
+    + updateProfile(): Profile
+}
+
+class MessageService {
+    + sendMessage(): Message
+    + getConversation(): List<Message>
+}
+
+class MatchService {
+    + findMatches(): List<User>
+    + calculateCompatibility(): Double
+}
+
+' Data Access
+interface UserRepository {
+    + findByUsername(): Optional<User>
+    + save(): User
+}
+
+interface ProfileRepository {
+    + findByUserId(): Optional<Profile>
+    + save(): Profile
+}
+
+interface MessageRepository {
+    + findBySenderAndRecipient(): List<Message>
+    + save(): Message
+}
+
+' Security
+class JwtTokenProvider {
+    + generateToken(): String
+    + validateToken(): boolean
+}
+
+' Android
+class LoginActivity {
+    + handleLogin(): void
+    + handleRegister(): void
+}
+
+class MainActivity {
+    + setupNavigation(): void
+}
+
+class ApiClient {
+    + create(): BinomeApiService
+}
+
+' Database
+database "PostgreSQL"
+
+' Relationships
+Profile --> User
+Message --> User : sender
+Message --> User : recipient
+
+AuthController --> AuthenticationService
+ProfileController --> ProfileService
+MessageController --> MessageService
+MatchController --> MatchService
+
+AuthenticationService --> UserRepository
+ProfileService --> ProfileRepository
+MessageService --> MessageRepository
+MatchService --> UserRepository
+
+AuthenticationService --> JwtTokenProvider
+
+UserRepository --> PostgreSQL
+ProfileRepository --> PostgreSQL
+MessageRepository --> PostgreSQL
+
+LoginActivity --> ApiClient
+MainActivity --> ApiClient
+
+@enduml

@@ -1,25 +1,34 @@
 # Binome Matcher PlantUML Diagrams
 
-Simple black and white PlantUML diagrams for the Binome Matcher application.
+Clean black and white PlantUML diagrams for the Binome Matcher application.
 
-## Diagrams (from detailed to minimal)
+## Class Diagrams
 
-### 1. Simple Class Diagram (`binome_matcher_simple_diagram.puml`)
-Shows individual classes without attributes:
-- All main classes (User, Profile, Message)
-- Controllers, Services, Repositories
-- Basic relationships
+### 1. Full Class Diagram (`binome_matcher_simple_diagram.puml`)
+Complete class diagram with:
+- All attributes and key methods
+- Organized by packages (Domain, Controllers, Services, Repositories)
+- Full relationships and dependencies
+- Best for detailed documentation
 
-### 2. Ultra Simple (`binome_matcher_ultra_simple_diagram.puml`)
-Abstract class diagram showing:
-- Generic Controller → Service → Repository pattern
-- Core entities only
-- Data flow
+### 2. Clean Class Diagram (`binome_matcher_clean_class_diagram.puml`) 
+Balanced class diagram with:
+- Essential attributes only
+- Key methods (simplified parameters)
+- Clean layout without packages
+- Best for presentations
 
-### 3. Minimal Overview (`binome_matcher_minimal_diagram.puml`)
-Component-level architecture:
-- 4 main components
-- High-level interactions
+### 3. Ultra Simple (`binome_matcher_ultra_simple_diagram.puml`)
+Abstract pattern view:
+- Generic classes showing architecture patterns
+- No attributes or methods
+- Best for high-level understanding
+
+### 4. Component Overview (`binome_matcher_minimal_diagram.puml`)
+System architecture:
+- Component-level view (not classes)
+- Shows main system boundaries
+- Best for architecture overview
 
 ## How to View
 
@@ -27,8 +36,13 @@ Component-level architecture:
 2. Copy any `.puml` file content
 3. Paste and click "Submit"
 
-## Architecture
+## Key Classes
 
-**Android App** → **Spring Boot API** → **PostgreSQL**
+- **User**: Core authentication entity
+- **Profile**: User details and preferences
+- **Message**: Communication between users
+- **Controllers**: REST API endpoints
+- **Services**: Business logic
+- **Repositories**: Data access layer
 
-Simple 3-tier architecture with JWT security.
+All diagrams use monochrome styling for clean, professional documentation.

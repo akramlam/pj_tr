@@ -1,67 +1,188 @@
-@startuml Binome Matcher - Simple Class Diagram
+@startuml Binome Matcher - Class Diagram
 
 skinparam monochrome true
 skinparam shadowing false
 skinparam packageStyle rectangle
 skinparam defaultFontSize 12
-skinparam classAttributeIconSize 0
-hide circle
-hide methods
 
-' Core entities
-class User
-class Profile
-class Message
+' Core Domain Entities
+package "Domain" {
+    class User {
+        - id: Long
+        - username: String
+        - email: String
+        - password: String
+        - roles: Set<String>
+        + getUsername(): String
+        + getRoles(): Set<String>
+    }
+    
+    class Profile {
+        - id: Long
+        - user: User
+        - formation: String
+        - skills: Set<String>
+        - preferences: String
+        + getUser(): User
+        + getSkills(): Set<String>
+    }
+    
+    class Message {
+        - id: Long
+        - sender: User
+        - recipient: User
+        - content: String
+        - timestamp: Instant
+        + getSender(): User
+        + getRecipient(): User
+    }
+}
 
 ' Controllers
-class AuthController
-class ProfileController
-class MessageController
-class MatchController
+package "Controllers" {
+    class AuthController {
+        - authService: AuthenticationService
+        + register(RegisterRequest): AuthResponse
+        + login(LoginRequest): AuthResponse
+    }
+    
+    class ProfileController {
+        - profileService: ProfileService
+        + createProfile(ProfileRequest): Profile
+        + getProfile(userId: Long): Profile
+        + updateProfile(userId: Long, request: ProfileRequest): Profile
+    }
+    
+    class MessageController {
+        - messageService: MessageService
+        + sendMessage(MessageRequest): Message
+        + getConversation(userId: Long): List<Message>
+    }
+    
+    class MatchController {
+        - matchService: MatchService
+        + findMatches(userId: Long): List<User>
+        + getRecommendations(userId: Long): List<User>
+    }
+}
 
 ' Services
-class AuthService
-class ProfileService  
-class MessageService
-class MatchService
+package "Services" {
+    class AuthenticationService {
+        - userRepository: UserRepository
+        - passwordEncoder: PasswordEncoder
+        - jwtTokenProvider: JwtTokenProvider
+        + register(username: String, email: String, password: String): String
+        + login(username: String, password: String): String
+    }
+    
+    class ProfileService {
+        - profileRepository: ProfileRepository
+        - userRepository: UserRepository
+        + createProfile(userId: Long, profileDto: ProfileDto): Profile
+        + getProfile(userId: Long): Profile
+        + updateProfile(profileId: Long, profileDto: ProfileDto): Profile
+    }
+    
+    class MessageService {
+        - messageRepository: MessageRepository
+        - userRepository: UserRepository
+        + sendMessage(senderId: Long, recipientId: Long, content: String): Message
+        + getConversation(user1Id: Long, user2Id: Long): List<Message>
+    }
+    
+    class MatchService {
+        - userRepository: UserRepository
+        - profileRepository: ProfileRepository
+        + findMatches(userId: Long): List<User>
+        + calculateCompatibility(user1: User, user2: User): Double
+    }
+}
 
 ' Repositories
-class UserRepository
-class ProfileRepository
-class MessageRepository
+package "Repositories" {
+    interface UserRepository {
+        + findByUsername(username: String): Optional<User>
+        + findByEmail(email: String): Optional<User>
+        + existsByUsername(username: String): boolean
+    }
+    
+    interface ProfileRepository {
+        + findByUserId(userId: Long): Optional<Profile>
+    }
+    
+    interface MessageRepository {
+        + findBySenderIdAndRecipientId(senderId: Long, recipientId: Long): List<Message>
+    }
+}
 
 ' Security
-class JwtTokenProvider
+package "Security" {
+    class JwtTokenProvider {
+        - jwtSecret: String
+        - jwtExpirationMs: int
+        + generateToken(username: String): String
+        + getUsernameFromToken(token: String): String
+        + validateToken(token: String): boolean
+    }
+}
 
-' Android
-class LoginActivity
-class MainActivity
-class ApiClient
+' Android Client
+package "Android" {
+    class LoginActivity {
+        - apiClient: ApiClient
+        + onCreate(savedInstanceState: Bundle): void
+        + handleLogin(username: String, password: String): void
+        + handleRegister(username: String, email: String, password: String): void
+    }
+    
+    class MainActivity {
+        - navigationView: NavigationView
+        - drawerLayout: DrawerLayout
+        + onCreate(savedInstanceState: Bundle): void
+        + setupNavigation(): void
+    }
+    
+    class ApiClient {
+        - retrofit: Retrofit
+        - BASE_URL: String
+        + create(): BinomeApiService
+    }
+}
 
 ' Database
 database "PostgreSQL" as DB
 
-' Relationships
-Profile --> User
-Message --> User
+' Core relationships
+Profile "1" --> "1" User
+Message "*" --> "1" User : sender
+Message "*" --> "1" User : recipient
 
-AuthController --> AuthService
+' Service-Repository relationships
+AuthenticationService --> UserRepository
+ProfileService --> ProfileRepository
+ProfileService --> UserRepository
+MessageService --> MessageRepository
+MessageService --> UserRepository
+MatchService --> UserRepository
+MatchService --> ProfileRepository
+
+' Controller-Service relationships
+AuthController --> AuthenticationService
 ProfileController --> ProfileService
 MessageController --> MessageService
 MatchController --> MatchService
 
-AuthService --> UserRepository
-ProfileService --> ProfileRepository
-MessageService --> MessageRepository
+' Security relationships
+AuthenticationService --> JwtTokenProvider
 
+' Repository-Database relationships
 UserRepository --> DB
 ProfileRepository --> DB
 MessageRepository --> DB
 
-AuthService --> JwtTokenProvider
-
+' Android relationships
 LoginActivity --> ApiClient
-MainActivity --> ApiClient
-ApiClient ..> AuthController
+MainActivity ..> LoginActivity
 
 @enduml
