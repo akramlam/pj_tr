@@ -45,6 +45,7 @@ public class OpenProjectsFragment extends Fragment {
     
     private void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        availableProjects = new ArrayList<>(); // Initialize the list before creating adapter
         adapter = new ProjectsAdapter(availableProjects, this::onProjectJoin);
         recyclerView.setAdapter(adapter);
         
@@ -58,17 +59,17 @@ public class OpenProjectsFragment extends Fragment {
         // Create mock data for available projects
         availableProjects = new ArrayList<>();
         availableProjects.add(new MatchesFragment.Project("Smart Home IoT System", "Build an IoT system for home automation",
-            "IoT, Arduino, Python, Mobile App", "Intermediate", "2-3 months", 3, 5));
+            "IoT", "Intermediate", "2-3 months", "Alex Johnson", 5, 3));
         availableProjects.add(new MatchesFragment.Project("E-Learning Platform", "Create an interactive learning platform",
-            "React, Node.js, MongoDB, Video Streaming", "Advanced", "4-6 months", 2, 6));
+            "Web Development", "Advanced", "4-6 months", "Maria Garcia", 6, 2));
         availableProjects.add(new MatchesFragment.Project("Stock Price Predictor", "ML model for stock market analysis",
-            "Machine Learning, Python, TensorFlow, Financial APIs", "Intermediate", "1-2 months", 4, 4));
+            "Machine Learning", "Intermediate", "1-2 months", "David Kim", 4, 4));
         availableProjects.add(new MatchesFragment.Project("Social Media Analytics", "Analyze social media trends and sentiment",
-            "NLP, Python, Twitter API, Data Visualization", "Advanced", "3-4 months", 1, 5));
+            "Data Science", "Advanced", "3-4 months", "Sarah Chen", 5, 1));
         availableProjects.add(new MatchesFragment.Project("Recipe Recommendation App", "Mobile app for personalized recipes",
-            "Android/iOS, Firebase, Machine Learning", "Beginner", "2-3 months", 5, 3));
+            "Mobile Development", "Beginner", "2-3 months", "Mike Wilson", 3, 5));
         availableProjects.add(new MatchesFragment.Project("Blockchain Voting System", "Secure voting system using blockchain",
-            "Blockchain, Solidity, Web3, React", "Advanced", "6+ months", 2, 8));
+            "Blockchain", "Advanced", "6+ months", "Emma Taylor", 8, 2));
         
         if (adapter != null) {
             adapter.updateData(availableProjects);

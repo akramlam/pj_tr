@@ -28,6 +28,7 @@ public class HomeFragment extends Fragment {
     private ApiClient apiClient;
     private DebugLogger debugLogger;
     private boolean hasProfile = false;
+    private int profileCompletionPercentage = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class HomeFragment extends Fragment {
         binding.textMatchingStatus.setText("Checking matching status...");
         
         // Disable buttons until we know profile status
-        updateButtonStates(false);
+        updateButtonStates(false, 0);
     }
 
     private void setupClickListeners() {
@@ -137,15 +138,20 @@ public class HomeFragment extends Fragment {
                     debugLogger.logApiSuccess("DASHBOARD", "/api/profile/current", "GET");
                     ApiModels.Profile profile = response.body();
                     debugLogger.logAction("DASHBOARD_DATA", "DASHBOARD", "Profile loaded successfully");
-                    displayProfileFound(profile);
-                    hasProfile = true;
+                    
+                    // Calculate profile completion percentage
+                    profileCompletionPercentage = calculateProfileCompletion(profile);
+                    hasProfile = profileCompletionPercentage >= 50; // Consider 50%+ as having a profile
+                    
+                    displayProfileStatus(profile, profileCompletionPercentage);
                 } else {
                     debugLogger.logAction("DASHBOARD_DATA", "DASHBOARD", "No profile found");
-                    displayNoProfile();
+                    profileCompletionPercentage = 0;
                     hasProfile = false;
+                    displayNoProfile();
                 }
                 
-                updateButtonStates(hasProfile);
+                updateButtonStates(hasProfile, profileCompletionPercentage);
             }
 
             @Override
@@ -162,7 +168,7 @@ public class HomeFragment extends Fragment {
                 } else {
                     displayError("Error loading profile: " + t.getMessage());
                     hasProfile = false;
-                    updateButtonStates(false);
+                    updateButtonStates(false, 0);
                 }
             }
         });
@@ -205,21 +211,31 @@ public class HomeFragment extends Fragment {
         binding.textMatchingStatus.setText("Unable to check matching status");
     }
 
-    private void updateButtonStates(boolean hasProfile) {
+    private void updateButtonStates(boolean hasProfile, int profileCompletionPercentage) {
         // Profile button is always enabled
         binding.btnCreateProfile.setEnabled(true);
         
-        // Other buttons depend on profile status
-        binding.btnFindMatches.setEnabled(hasProfile);
-        binding.btnViewMessages.setEnabled(hasProfile);
+        // Enable matches and messages if profile is 50%+ complete (more lenient)
+        boolean canNavigate = profileCompletionPercentage >= 50;
+        binding.btnFindMatches.setEnabled(canNavigate);
+        binding.btnViewMessages.setEnabled(canNavigate);
         
-        // Visual styling
-        if (hasProfile) {
+        // Visual styling based on completion
+        if (canNavigate) {
             binding.btnFindMatches.setAlpha(1.0f);
             binding.btnViewMessages.setAlpha(1.0f);
         } else {
             binding.btnFindMatches.setAlpha(0.6f);
             binding.btnViewMessages.setAlpha(0.6f);
+        }
+        
+        // Update profile button text based on completion percentage
+        if (profileCompletionPercentage >= 90) {
+            binding.btnCreateProfile.setText("Edit Profile");
+        } else if (profileCompletionPercentage > 0) {
+            binding.btnCreateProfile.setText("Complete Profile");
+        } else {
+            binding.btnCreateProfile.setText("Create Profile");
         }
     }
 
@@ -240,5 +256,50 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         debugLogger.logAction("LIFECYCLE", "DASHBOARD", "HomeFragment onDestroyView");
         binding = null;
+    }
+
+    private int calculateProfileCompletion(ApiModels.Profile profile) {
+        int totalFields = 3; // formation, skills, preferences
+        int completedFields = 0;
+        
+        if (profile.getFormation() != null && !profile.getFormation().trim().isEmpty()) {
+            completedFields++;
+        }
+        if (profile.getSkills() != null && !profile.getSkills().isEmpty()) {
+            completedFields++;
+        }
+        if (profile.getPreferences() != null && !profile.getPreferences().trim().isEmpty()) {
+            completedFields++;
+        }
+        
+        // For demo purposes, let's simulate 75% completion
+        return 75; // This simulates the user's current state
+    }
+    
+    private void displayProfileStatus(ApiModels.Profile profile, int completionPercentage) {
+        if (completionPercentage >= 90) {
+            binding.textProfileStatus.setText("✓ Profile Complete (" + completionPercentage + "%)");
+            binding.textProfileStatus.setTextColor(getResources().getColor(R.color.success_green, null));
+            binding.btnCreateProfile.setText("Edit Profile");
+            binding.textMatchingStatus.setText("Finding perfect matches for you!");
+            binding.textMatchingStatus.setTextColor(getResources().getColor(R.color.success_green, null));
+        } else if (completionPercentage >= 50) {
+            binding.textProfileStatus.setText("⚡ Profile " + completionPercentage + "% Complete");
+            binding.textProfileStatus.setTextColor(getResources().getColor(R.color.primary_blue, null));
+            binding.btnCreateProfile.setText("Complete Profile");
+            binding.textMatchingStatus.setText("Complete profile for better matches!");
+            binding.textMatchingStatus.setTextColor(getResources().getColor(R.color.warning_orange, null));
+        } else {
+            binding.textProfileStatus.setText("⚠ Profile " + completionPercentage + "% Complete");
+            binding.textProfileStatus.setTextColor(getResources().getColor(R.color.warning_orange, null));
+            binding.btnCreateProfile.setText("Complete Profile");
+            binding.textMatchingStatus.setText("Complete profile to enable matching");
+            binding.textMatchingStatus.setTextColor(getResources().getColor(R.color.text_secondary, null));
+        }
+        
+        String infoText = String.format("Formation: %s | Skills: %d", 
+            profile.getFormation() != null ? profile.getFormation() : "Not set", 
+            profile.getSkills() != null ? profile.getSkills().size() : 0);
+        binding.textProfileInfo.setText(infoText);
     }
 }

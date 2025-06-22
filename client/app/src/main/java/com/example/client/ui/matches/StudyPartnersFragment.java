@@ -12,7 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.client.R;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class StudyPartnersFragment extends Fragment {
     
@@ -45,6 +47,7 @@ public class StudyPartnersFragment extends Fragment {
     
     private void setupRecyclerView() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        potentialMatches = new ArrayList<>(); // Initialize the list before creating adapter
         adapter = new StudyPartnersAdapter(potentialMatches);
         recyclerView.setAdapter(adapter);
         
@@ -57,16 +60,31 @@ public class StudyPartnersFragment extends Fragment {
     private void loadData() {
         // Create mock data for study partners
         potentialMatches = new ArrayList<>();
-        potentialMatches.add(new MatchesFragment.PotentialMatch("Alice Chen", "Computer Science", 
-            "Looking for ML study partner", "Machine Learning, Python, TensorFlow", 85));
-        potentialMatches.add(new MatchesFragment.PotentialMatch("David Rodriguez", "Data Science", 
-            "Working on NLP project", "Natural Language Processing, BERT, PyTorch", 92));
-        potentialMatches.add(new MatchesFragment.PotentialMatch("Sarah Kim", "Software Engineering", 
-            "Mobile app development", "Android, Kotlin, Firebase", 78));
-        potentialMatches.add(new MatchesFragment.PotentialMatch("Mohammed Hassan", "AI Research", 
-            "Deep learning enthusiast", "Computer Vision, OpenCV, YOLO", 88));
-        potentialMatches.add(new MatchesFragment.PotentialMatch("Emma Johnson", "Web Development", 
-            "Full-stack developer", "React, Node.js, MongoDB", 81));
+        
+        Set<String> skills1 = new HashSet<>();
+        skills1.add("Machine Learning");
+        skills1.add("Python");
+        potentialMatches.add(new MatchesFragment.PotentialMatch("Alice Chen", "Computer Science", skills1, 85));
+        
+        Set<String> skills2 = new HashSet<>();
+        skills2.add("Natural Language Processing");
+        skills2.add("PyTorch");
+        potentialMatches.add(new MatchesFragment.PotentialMatch("David Rodriguez", "Data Science", skills2, 92));
+        
+        Set<String> skills3 = new HashSet<>();
+        skills3.add("Android");
+        skills3.add("Kotlin");
+        potentialMatches.add(new MatchesFragment.PotentialMatch("Sarah Kim", "Software Engineering", skills3, 78));
+        
+        Set<String> skills4 = new HashSet<>();
+        skills4.add("Computer Vision");
+        skills4.add("OpenCV");
+        potentialMatches.add(new MatchesFragment.PotentialMatch("Mohammed Hassan", "AI Research", skills4, 88));
+        
+        Set<String> skills5 = new HashSet<>();
+        skills5.add("React");
+        skills5.add("Node.js");
+        potentialMatches.add(new MatchesFragment.PotentialMatch("Emma Johnson", "Web Development", skills5, 81));
         
         if (adapter != null) {
             adapter.updateData(potentialMatches);

@@ -34,4 +34,18 @@
         android:name="com.example.client.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/nav_conversation_detail"
+        android:name="com.example.client.ui.messages.ConversationDetailFragment"
+        android:label="Conversation"
+        tools:layout="@layout/fragment_conversation_detail">
+        <argument
+            android:name="username"
+            app:argType="string" />
+        <argument
+            android:name="displayName"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
 </navigation>

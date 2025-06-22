@@ -117,8 +117,7 @@ public class MockApiService implements BinomeApiService {
         return new MockCall<>(message);
     }
     
-    @Override
-    public Call<List<ApiModels.Message>> getConversation(String otherUsername) {
+    private Call<List<ApiModels.Message>> getConversation(String otherUsername) {
         List<ApiModels.Message> messages = new ArrayList<>();
         
         // Create mock conversation
@@ -140,6 +139,59 @@ public class MockApiService implements BinomeApiService {
         messages.add(msg2);
         
         return new MockCall<>(messages);
+    }
+    
+    @Override
+    public Call<ApiModels.Profile> getProfile() {
+        return getCurrentProfile();
+    }
+    
+    @Override
+    public Call<ApiModels.Profile> updateProfile(ApiModels.CreateProfileRequest request) {
+        return createProfile(request);
+    }
+    
+    @Override
+    public Call<ApiModels.MatchResponse> sendMatchAction(ApiModels.MatchRequest request) {
+        return sendMatchRequest(request);
+    }
+    
+    @Override
+    public Call<List<ApiModels.Conversation>> getConversations() {
+        List<ApiModels.Conversation> conversations = new ArrayList<>();
+        
+        for (int i = 1; i <= 3; i++) {
+            ApiModels.Conversation conv = new ApiModels.Conversation();
+            conv.setUsername("student" + i);
+            conv.setDisplayName("Student " + i);
+            conv.setLastMessage("Last message from conversation " + i);
+            conv.setTimestamp(java.time.Instant.now().minusSeconds(i * 1800).toString());
+            conv.setHasUnreadMessages(i == 1);
+            conv.setUnreadCount(i == 1 ? 2 : 0);
+            conversations.add(conv);
+        }
+        
+        return new MockCall<>(conversations);
+    }
+    
+    @Override
+    public Call<List<ApiModels.Message>> getConversationMessages(String otherUsername) {
+        return getConversation(otherUsername);
+    }
+    
+    @Override
+    public Call<Void> markConversationAsRead(String otherUsername) {
+        return new MockCall<>(null);
+    }
+    
+    @Override
+    public Call<ApiModels.Message> sendMessageLegacy(ApiModels.SendMessageRequest request) {
+        return sendMessage(request);
+    }
+    
+    @Override
+    public Call<List<ApiModels.Message>> getConversationLegacy(String otherUsername) {
+        return getConversation(otherUsername);
     }
     
     // Mock Call implementation

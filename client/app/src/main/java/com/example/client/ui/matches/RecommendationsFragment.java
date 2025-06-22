@@ -72,6 +72,9 @@ public class RecommendationsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recommendations = new ArrayList<>();
         
+        // For now, we'll create a simple adapter when we have one
+        // TODO: Create RecommendationsAdapter
+        
         swipeRefresh.setOnRefreshListener(() -> {
             loadData();
             swipeRefresh.setRefreshing(false);

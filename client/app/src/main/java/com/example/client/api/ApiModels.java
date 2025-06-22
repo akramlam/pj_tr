@@ -143,6 +143,18 @@ public class ApiModels {
         public Set<String> commonSkills;
         public int compatibilityScore;
         
+        // Project-specific fields
+        public Long projectId;
+        public String projectTitle;
+        public String projectDescription;
+        public String category;
+        public String difficulty;
+        public String duration;
+        public String createdBy;
+        public int teamSize;
+        public int currentTeamSize;
+        public Set<String> matchingSkills;
+        
         // Getters and setters
         public Long getUserId() { return userId; }
         public void setUserId(Long userId) { this.userId = userId; }
@@ -154,15 +166,40 @@ public class ApiModels {
         public void setCommonSkills(Set<String> commonSkills) { this.commonSkills = commonSkills; }
         public int getCompatibilityScore() { return compatibilityScore; }
         public void setCompatibilityScore(int compatibilityScore) { this.compatibilityScore = compatibilityScore; }
+        
+        // Project-specific getters and setters
+        public Long getProjectId() { return projectId; }
+        public void setProjectId(Long projectId) { this.projectId = projectId; }
+        public String getProjectTitle() { return projectTitle; }
+        public void setProjectTitle(String projectTitle) { this.projectTitle = projectTitle; }
+        public String getProjectDescription() { return projectDescription; }
+        public void setProjectDescription(String projectDescription) { this.projectDescription = projectDescription; }
+        public String getCategory() { return category; }
+        public void setCategory(String category) { this.category = category; }
+        public String getDifficulty() { return difficulty; }
+        public void setDifficulty(String difficulty) { this.difficulty = difficulty; }
+        public String getDuration() { return duration; }
+        public void setDuration(String duration) { this.duration = duration; }
+        public String getCreatedBy() { return createdBy; }
+        public void setCreatedBy(String createdBy) { this.createdBy = createdBy; }
+        public int getTeamSize() { return teamSize; }
+        public void setTeamSize(int teamSize) { this.teamSize = teamSize; }
+        public int getCurrentTeamSize() { return currentTeamSize; }
+        public void setCurrentTeamSize(int currentTeamSize) { this.currentTeamSize = currentTeamSize; }
+        public Set<String> getMatchingSkills() { return matchingSkills; }
+        public void setMatchingSkills(Set<String> matchingSkills) { this.matchingSkills = matchingSkills; }
     }
     
     public static class MatchRequest {
         public Long targetUserId;
+        public Long targetProjectId;  // Add this field for project matching
         public String action; // "LIKE" or "PASS"
         
         // Getters and setters
         public Long getTargetUserId() { return targetUserId; }
         public void setTargetUserId(Long targetUserId) { this.targetUserId = targetUserId; }
+        public Long getTargetProjectId() { return targetProjectId; }
+        public void setTargetProjectId(Long targetProjectId) { this.targetProjectId = targetProjectId; }
         public String getAction() { return action; }
         public void setAction(String action) { this.action = action; }
     }
